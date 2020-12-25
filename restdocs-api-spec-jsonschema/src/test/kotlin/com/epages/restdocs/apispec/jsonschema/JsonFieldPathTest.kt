@@ -11,7 +11,7 @@ class JsonFieldPathTest {
     @Test
     fun should_get_remaining_segments() {
         with(compile(
-            JsonSchemaFromFieldDescriptorsGenerator.FieldDescriptorWithSchemaType(
+            FieldDescriptorWithSchemaType(
                 "a.b.c", "", "", false, false,
                 Attributes()
             )

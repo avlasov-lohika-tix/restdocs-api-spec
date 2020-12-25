@@ -1,12 +1,16 @@
 package com.epages.restdocs.apispec.openapi3
 
 import com.epages.restdocs.apispec.jsonschema.JsonSchemaFromFieldDescriptorsGenerator
+import com.epages.restdocs.apispec.jsonschema.JsonSchemaFromMultipartsGenerator
 import com.epages.restdocs.apispec.model.FieldDescriptor
 import com.epages.restdocs.apispec.model.HTTPMethod
 import com.epages.restdocs.apispec.model.HeaderDescriptor
+import com.epages.restdocs.apispec.model.MultipartRequestModel
 import com.epages.restdocs.apispec.model.Oauth2Configuration
 import com.epages.restdocs.apispec.model.ParameterDescriptor
+import com.epages.restdocs.apispec.model.RequestBodyModel
 import com.epages.restdocs.apispec.model.RequestModel
+import com.epages.restdocs.apispec.model.RequestPartModel
 import com.epages.restdocs.apispec.model.ResourceModel
 import com.epages.restdocs.apispec.model.ResponseModel
 import com.epages.restdocs.apispec.model.SimpleType
@@ -274,20 +278,7 @@ object OpenApi3Generator {
             return null
 
         return requestByContentType
-            .map { (contentType, requests) ->
-                toMediaType(
-                    requestFields = requests.flatMap { it ->
-                        if (it.request.contentType == "application/x-www-form-urlencoded") {
-                            it.request.requestParameters.map { parameterDescriptor2FieldDescriptor(it) }
-                        } else {
-                            it.request.requestFields
-                        }
-                    },
-                    examplesWithOperationId = requests.filter { it.request.example != null }.map { it.operationId to it.request.example!! }.toMap(),
-                    contentType = contentType,
-                    schemaName = requests.first().request.schema?.name
-                )
-            }.toMap()
+            .map { (contentType, requests) -> toMediaType(contentType, requests) }.toMap()
             .let { contentTypeToMediaType ->
                 if (contentTypeToMediaType.isEmpty()) null
                 else RequestBody()
@@ -330,14 +321,15 @@ object OpenApi3Generator {
                 }.toMap().nullIfEmpty()
         }
         return responsesByContentType
-            .map { (contentType, requests) ->
+            .map { (contentType, responses) ->
                 toMediaType(
-                    requestFields = requests.flatMap { it.response.responseFields },
-                    examplesWithOperationId = requests.map { it.operationId to it.response.example!! }.toMap(),
+                    requestFields = responses.flatMap { it.response.responseFields },
+                    examplesWithOperationId = responses.map { it.operationId to it.response.example!! }.toMap(),
                     contentType = contentType,
                     schemaName = responseModelsSameStatus.first().response.schema?.name
                 )
-            }.toMap()
+            }
+            .toMap()
             .let { contentTypeToMediaType ->
                 apiResponse
                     .apply {
@@ -346,6 +338,39 @@ object OpenApi3Generator {
                             else Content().apply { contentTypeToMediaType.forEach { addMediaType(it.key, it.value) } }
                     }
             }
+    }
+
+    private fun toMediaType(
+        contentType: String,
+        requests: List<RequestModelWithOperationId>
+    ) : Pair<String, MediaType> {
+        if (contentType == "multipart/form-data") {
+            return toMediaType(
+                requestParts = requests.map { it.request as MultipartRequestModel }
+            )
+        } else {
+            return toMediaType(
+                requestFields = requests.flatMap { it ->
+                    val model = it.request as RequestBodyModel
+                    if (model.contentType == "application/x-www-form-urlencoded") {
+                        model.requestParameters.map { parameterDescriptor2FieldDescriptor(it) }
+                    } else {
+                        model.requestFields
+                    }
+                },
+                examplesWithOperationId = requests.filter { (it.request as RequestBodyModel).example != null }
+                    .map { it.operationId to (it.request as RequestBodyModel).example!! }.toMap(),
+                contentType = contentType,
+                schemaName = (requests.first().request as RequestBodyModel).schema?.name
+            )
+        }
+    }
+
+    private fun toMediaType(
+        requestModel: MultipartRequestModel
+    ): Pair<String, MediaType> {
+        val schema = JsonSchemaFromMultipartsGenerator().generate(requestModel)
+            .let { Json.mapper().readValue<Schema<Any>>(it) }
     }
 
     private fun toMediaType(

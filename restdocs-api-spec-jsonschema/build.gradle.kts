@@ -13,6 +13,7 @@ val jacksonVersion: String by extra
 val junitVersion: String by extra
 
 dependencies {
+    implementation("org.junit.jupiter:junit-jupiter:5.4.2")
     compile(kotlin("stdlib-jdk8"))
     compile(project(":restdocs-api-spec-model"))
     compile("com.github.erosb:everit-json-schema:1.11.0")

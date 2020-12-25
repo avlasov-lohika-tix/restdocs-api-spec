@@ -43,10 +43,7 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
     private fun createModel(operation: Operation, placeholderResolverFactory: PlaceholderResolverFactory, context: RestDocumentationContext): ResourceModel {
         val operationId = propertyPlaceholderHelper.replacePlaceholders(operation.name, placeholderResolverFactory.create(context))
 
-        val hasRequestBody = operation.request.contentAsString.isNotEmpty()
         val hasResponseBody = operation.response.contentAsString.isNotEmpty()
-
-        val securityRequirements = SecurityRequirementsHandler().extractSecurityRequirements(operation)
 
         val tags =
             if (resourceSnippetParameters.tags.isEmpty())
@@ -55,6 +52,8 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
                     .orElse(emptySet())
             else resourceSnippetParameters.tags
 
+        val requestModel = generateRequestModel(operation)
+
         return ResourceModel(
             operationId = operationId,
             summary = resourceSnippetParameters.summary ?: resourceSnippetParameters.description,
@@ -62,18 +61,7 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
             privateResource = resourceSnippetParameters.privateResource,
             deprecated = resourceSnippetParameters.deprecated,
             tags = tags,
-            request = RequestModel(
-                path = getUriPath(operation),
-                method = operation.request.method.name,
-                contentType = if (hasRequestBody) getContentTypeOrDefault(operation.request.headers) else null,
-                headers = resourceSnippetParameters.requestHeaders.withExampleValues(operation.request.headers),
-                pathParameters = resourceSnippetParameters.pathParameters.filter { !it.isIgnored },
-                requestParameters = resourceSnippetParameters.requestParameters.filter { !it.isIgnored },
-                schema = resourceSnippetParameters.requestSchema,
-                requestFields = if (hasRequestBody) resourceSnippetParameters.requestFields.filter { !it.isIgnored } else emptyList(),
-                example = if (hasRequestBody) operation.request.contentAsString else null,
-                securityRequirements = securityRequirements
-            ),
+            request = requestModel,
             response = ResponseModel(
                 status = operation.response.status.value(),
                 contentType = if (hasResponseBody) getContentTypeOrDefault(operation.response.headers) else null,
@@ -109,6 +97,80 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
             .orElse(APPLICATION_JSON)
             .toString()
 
+    private fun generateRequestModel(operation: Operation): RequestModel {
+        val securityRequirements = SecurityRequirementsHandler().extractSecurityRequirements(operation)
+
+        val path: String = getUriPath(operation)
+        val method = operation.request.method.name
+        val headers = resourceSnippetParameters.requestHeaders.withExampleValues(operation.request.headers)
+        val pathParameters = resourceSnippetParameters.pathParameters.filter { !it.isIgnored }
+        val requestParameters = resourceSnippetParameters.requestParameters.filter { !it.isIgnored }
+        val hasRequestBody = operation.request.contentAsString.isNotEmpty()
+        val contentType = if (hasRequestBody) getContentTypeOrDefault(operation.request.headers) else null
+
+        verifyContentTypeWithRequestModel(contentType, resourceSnippetParameters.request)
+
+        return when(val request = resourceSnippetParameters.request) {
+            is RequestBody -> {
+                RequestBodyModel(
+                    path = path,
+                    method = method,
+                    contentType = contentType,
+                    headers = headers,
+                    pathParameters = pathParameters,
+                    requestParameters = requestParameters,
+                    schema = request.requestSchema,
+                    requestFields = if (hasRequestBody) request.requestFields.filter { !it.isIgnored } else emptyList(),
+                    example = if (hasRequestBody) operation.request.contentAsString else null,
+                    securityRequirements = securityRequirements
+                )
+            }
+            is MultipartRequest -> {
+
+                val requestParts = operation.request.parts
+                    .map {
+                        RequestPartModel(
+                            schema = request.requestPartsSchemas[it.name],
+                            example = it.contentAsString,
+                            partName = it.name,
+                            description = request.requestParts[it.name]?.description.toString(),
+                            requestFields = request.requestPartFields[it.name]!!
+                        )
+                    }
+
+                MultipartRequestModel(
+                    contentType = contentType,
+                    path = path,
+                    method = method,
+                    headers = headers,
+                    pathParameters = pathParameters,
+                    requestParameters = requestParameters,
+                    securityRequirements = securityRequirements,
+                    requestParts = requestParts
+                )
+            }
+            else -> BaseRequestModel(
+                contentType = contentType,
+                path = path,
+                method = method,
+                headers = headers,
+                pathParameters = pathParameters,
+                requestParameters = requestParameters,
+                securityRequirements = securityRequirements
+            )
+        }
+    }
+
+    private fun verifyContentTypeWithRequestModel(contentType: String?, request: RequestObject?) {
+        if (contentType == "multipart/form-data") {
+            if (request == null) {
+                throw MissingRequestModelForMultipartRequest()
+            } else if (request !is MultipartRequest) {
+                throw NotMatchingRequestModelForMutlipartRequest()
+            }
+        }
+    }
+
     internal object JsonTemplateFormat : TemplateFormat {
         override fun getId(): String = "json"
         override fun getFileExtension(): String = "json"
@@ -125,17 +187,56 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
         val tags: Set<String>
     )
 
-    private data class RequestModel(
-        val path: String,
-        val method: String,
-        val contentType: String?,
+    private interface RequestModel {
+        val path: String
+        val method: String
+        val headers: List<HeaderDescriptorWithType>
+        val pathParameters: List<ParameterDescriptorWithType>
+        val requestParameters: List<ParameterDescriptorWithType>
+        val securityRequirements: SecurityRequirements?
+        val contentType: String?
+    }
+
+    private data class BaseRequestModel(
+        override val path: String,
+        override val method: String,
+        override val headers: List<HeaderDescriptorWithType>,
+        override val pathParameters: List<ParameterDescriptorWithType>,
+        override val requestParameters: List<ParameterDescriptorWithType>,
+        override val securityRequirements: SecurityRequirements?,
+        override val contentType: String?
+    ) : RequestModel
+
+    private data class RequestBodyModel(
         val schema: Schema? = null,
-        val headers: List<HeaderDescriptorWithType>,
-        val pathParameters: List<ParameterDescriptorWithType>,
-        val requestParameters: List<ParameterDescriptorWithType>,
         val requestFields: List<FieldDescriptor>,
         val example: String?,
-        val securityRequirements: SecurityRequirements?
+        override val path: String,
+        override val method: String,
+        override val headers: List<HeaderDescriptorWithType>,
+        override val pathParameters: List<ParameterDescriptorWithType>,
+        override val requestParameters: List<ParameterDescriptorWithType>,
+        override val securityRequirements: SecurityRequirements?,
+        override val contentType: String?
+    ) : RequestModel
+
+    private data class MultipartRequestModel(
+        val requestParts: List<RequestPartModel>,
+        override val path: String,
+        override val method: String,
+        override val headers: List<HeaderDescriptorWithType>,
+        override val pathParameters: List<ParameterDescriptorWithType>,
+        override val requestParameters: List<ParameterDescriptorWithType>,
+        override val securityRequirements: SecurityRequirements?,
+        override val contentType: String?
+    ) : RequestModel
+
+    private data class RequestPartModel(
+        val schema: Schema? = null,
+        val example: String?,
+        val partName: String,
+        val description: String?,
+        val requestFields: List<FieldDescriptor>
     )
 
     private data class ResponseModel(
@@ -148,4 +249,8 @@ class ResourceSnippet(private val resourceSnippetParameters: ResourceSnippetPara
     )
 
     class MissingUrlTemplateException : RuntimeException("Missing URL template - please use RestDocumentationRequestBuilders with urlTemplate to construct the request")
+
+    class MissingRequestModelForMultipartRequest : RuntimeException("Missing request model for multipart request")
+
+    class NotMatchingRequestModelForMutlipartRequest : RuntimeException("Not matching request model for multipart request")
 }

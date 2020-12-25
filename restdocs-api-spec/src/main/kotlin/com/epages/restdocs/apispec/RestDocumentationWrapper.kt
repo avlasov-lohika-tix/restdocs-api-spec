@@ -24,6 +24,7 @@ abstract class RestDocumentationWrapper {
 
         val enhancedSnippets = if (snippets.none { it is ResourceSnippet }) { // No ResourceSnippet, so we configure our own based on the info of the other snippets
             val resourceParameters = createBuilder(resourceDetails)
+                    .requestObject
                     .requestFields(
                             snippets.filter { it is RequestFieldsSnippet }
                                     .flatMap {
@@ -96,7 +97,6 @@ abstract class RestDocumentationWrapper {
             is ResourceSnippetParametersBuilder -> resourceDetails
             else -> ResourceSnippetParametersBuilder()
                     .description(resourceDetails.description)
-                    .requestSchema(resourceDetails.requestSchema)
                     .responseSchema(resourceDetails.responseSchema)
                     .summary(resourceDetails.summary)
                     .privateResource(resourceDetails.privateResource)

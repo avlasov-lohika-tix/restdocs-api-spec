@@ -28,17 +28,57 @@ data class Schema(
     val name: String
 )
 
-data class RequestModel(
-    val path: String,
-    val method: HTTPMethod,
-    val contentType: String? = null,
-    val securityRequirements: SecurityRequirements?,
-    val headers: List<HeaderDescriptor>,
-    val pathParameters: List<ParameterDescriptor>,
-    val requestParameters: List<ParameterDescriptor>,
+interface RequestModel {
+    val path: String
+    val method: HTTPMethod
+    val headers: List<HeaderDescriptor>
+    val pathParameters: List<ParameterDescriptor>
+    val requestParameters: List<ParameterDescriptor>
+    val securityRequirements: SecurityRequirements?
+    val contentType: String?
+}
+
+data class BaseRequestModel(
+    override val path: String,
+    override val method: HTTPMethod,
+    override val headers: List<HeaderDescriptor>,
+    override val pathParameters: List<ParameterDescriptor>,
+    override val requestParameters: List<ParameterDescriptor>,
+    override val securityRequirements: SecurityRequirements?,
+    override val contentType: String?
+) : RequestModel
+
+data class RequestBodyModel(
+    val schema: Schema? = null,
     val requestFields: List<FieldDescriptor>,
-    val example: String? = null,
-    val schema: Schema? = null
+    val example: String?,
+    override val path: String,
+    override val method: HTTPMethod,
+    override val headers: List<HeaderDescriptor>,
+    override val pathParameters: List<ParameterDescriptor>,
+    override val requestParameters: List<ParameterDescriptor>,
+    override val securityRequirements: SecurityRequirements?,
+    override val contentType: String?
+) : RequestModel
+
+data class MultipartRequestModel(
+    val requestParts: List<RequestPartModel>,
+    override val path: String,
+    override val method: HTTPMethod,
+    override val headers: List<HeaderDescriptor>,
+    override val pathParameters: List<ParameterDescriptor>,
+    override val requestParameters: List<ParameterDescriptor>,
+    override val securityRequirements: SecurityRequirements?,
+    override val contentType: String?
+) : RequestModel
+
+data class RequestPartModel(
+    val contentType: String,
+    val schema: Schema? = null,
+    val example: String?,
+    val partName: String,
+    val description: String?,
+    val requestFields: List<FieldDescriptor>
 )
 
 data class ResponseModel(

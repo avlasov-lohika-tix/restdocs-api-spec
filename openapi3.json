@@ -1,0 +1,1940 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Platform Owner Settings API",
+    "description" : "Platform Owner Settings",
+    "version" : "local"
+  },
+  "servers" : [ {
+    "url" : "/api/v1/platform-owner-settings"
+  } ],
+  "tags" : [ {
+    "name" : "base-rates-controller",
+    "description" : "Base rate controller"
+  } ],
+  "paths" : {
+    "/bank-account" : {
+      "get" : {
+        "tags" : [ "bank-account-controller" ],
+        "summary" : "Find bank account by registered name",
+        "description" : "Find bank account by registered name",
+        "operationId" : "find-bank-account-by-registered-name",
+        "parameters" : [ {
+          "name" : "registeredName",
+          "in" : "query",
+          "description" : "A bank account name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bank-account-953646699"
+                },
+                "examples" : {
+                  "find-bank-account-by-registered-name" : {
+                    "value" : "[ {\n  \"bankAccountId\" : \"b28a3e11-2fef-43a4-85ea-d43e45c77e92\",\n  \"version\" : 1,\n  \"bankName\" : \"Privat Bank\",\n  \"bankCountry\" : \"UA\",\n  \"beneficiaryName\" : \"MegaBuyer\",\n  \"currencies\" : [ {\n    \"currency\" : \"USD\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"EUR\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"UAH\",\n    \"isDefault\" : true\n  } ],\n  \"proofOfAccountId\" : \"9ef51216-0533-4589-940c-cc54b542bcf5\",\n  \"accountName\" : \"Some name\",\n  \"accountNumber\" : \"Account Number\",\n  \"iban\" : \"GB33BUKB20201555555555\",\n  \"swiftOrBic\" : \"DEUTDEFF\",\n  \"externalId\" : \"External Id\",\n  \"sortCode\" : \"04-00-78\",\n  \"routingNumber\" : \"122105155\",\n  \"bsbNumber\" : \"312-988\",\n  \"correspondentBankName\" : \"Correspondent Bank Name\",\n  \"correspondentBankSwift\" : \"CTBAAU2S\"\n} ]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "bank-account-controller" ],
+        "summary" : "Save a bank account",
+        "description" : "Save a bank account",
+        "operationId" : "bank-account-create",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountDto": {
+                    "$ref": "#/components/schemas/bank-account-id1381505874"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "isCurrencyOverrideConfirmed",
+          "in" : "header",
+          "description" : "Is Currency override confirmed",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "false"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bank-account-id1381505874"
+                },
+                "examples" : {
+                  "bank-account-create" : {
+                    "value" : "{\n  \"bankAccountId\" : \"b28a3e11-2fef-43a4-85ea-d43e45c77e92\",\n  \"version\" : 1,\n  \"bankName\" : \"Privat Bank\",\n  \"bankCountry\" : \"UA\",\n  \"beneficiaryName\" : \"MegaBuyer\",\n  \"currencies\" : [ {\n    \"currency\" : \"USD\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"EUR\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"UAH\",\n    \"isDefault\" : true\n  } ],\n  \"proofOfAccountId\" : \"9ef51216-0533-4589-940c-cc54b542bcf5\",\n  \"accountName\" : \"Some name\",\n  \"accountNumber\" : \"Account Number\",\n  \"iban\" : \"GB33BUKB20201555555555\",\n  \"swiftOrBic\" : \"DEUTDEFF\",\n  \"externalId\" : \"External Id\",\n  \"sortCode\" : \"04-00-78\",\n  \"routingNumber\" : \"122105155\",\n  \"bsbNumber\" : \"312-988\",\n  \"correspondentBankName\" : \"Correspondent Bank Name\",\n  \"correspondentBankSwift\" : \"CTBAAU2S\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank-account/all" : {
+      "get" : {
+        "tags" : [ "bank-account-controller" ],
+        "summary" : "Find all bank accounts",
+        "description" : "Find all bank accounts",
+        "operationId" : "find-all-bank-accounts",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bank-account-all903038412"
+                },
+                "examples" : {
+                  "find-all-bank-accounts" : {
+                    "value" : "{\n  \"content\" : [ {\n    \"bankAccountId\" : \"b28a3e11-2fef-43a4-85ea-d43e45c77e92\",\n    \"version\" : 1,\n    \"bankName\" : \"Privat Bank\",\n    \"bankCountry\" : \"UA\",\n    \"beneficiaryName\" : \"MegaBuyer\",\n    \"currencies\" : [ {\n      \"currency\" : \"USD\",\n      \"isDefault\" : true\n    }, {\n      \"currency\" : \"EUR\",\n      \"isDefault\" : true\n    }, {\n      \"currency\" : \"UAH\",\n      \"isDefault\" : true\n    } ],\n    \"proofOfAccountId\" : \"9ef51216-0533-4589-940c-cc54b542bcf5\",\n    \"accountName\" : \"Some name\",\n    \"accountNumber\" : \"Account Number\",\n    \"iban\" : \"GB33BUKB20201555555555\",\n    \"swiftOrBic\" : \"DEUTDEFF\",\n    \"externalId\" : \"External Id\",\n    \"sortCode\" : \"04-00-78\",\n    \"routingNumber\" : \"122105155\",\n    \"bsbNumber\" : \"312-988\",\n    \"correspondentBankName\" : \"Correspondent Bank Name\",\n    \"correspondentBankSwift\" : \"CTBAAU2S\"\n  } ],\n  \"pageNumber\" : 1,\n  \"size\" : 20,\n  \"totalElements\" : 1,\n  \"totalPages\" : 1\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank-account/{id}" : {
+      "get" : {
+        "tags" : [ "bank-account-controller" ],
+        "summary" : "Find bank account by id",
+        "description" : "Find bank account by id",
+        "operationId" : "find-bank-account-by-id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "A bank account identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bank-account-id1381505874"
+                },
+                "examples" : {
+                  "find-bank-account-by-id" : {
+                    "value" : "{\n  \"bankAccountId\" : \"b28a3e11-2fef-43a4-85ea-d43e45c77e92\",\n  \"version\" : 1,\n  \"bankName\" : \"Privat Bank\",\n  \"bankCountry\" : \"UA\",\n  \"beneficiaryName\" : \"MegaBuyer\",\n  \"currencies\" : [ {\n    \"currency\" : \"USD\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"EUR\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"UAH\",\n    \"isDefault\" : true\n  } ],\n  \"proofOfAccountId\" : \"9ef51216-0533-4589-940c-cc54b542bcf5\",\n  \"accountName\" : \"Some name\",\n  \"accountNumber\" : \"Account Number\",\n  \"iban\" : \"GB33BUKB20201555555555\",\n  \"swiftOrBic\" : \"DEUTDEFF\",\n  \"externalId\" : \"External Id\",\n  \"sortCode\" : \"04-00-78\",\n  \"routingNumber\" : \"122105155\",\n  \"bsbNumber\" : \"312-988\",\n  \"correspondentBankName\" : \"Correspondent Bank Name\",\n  \"correspondentBankSwift\" : \"CTBAAU2S\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "bank-account-controller" ],
+        "summary" : "Update a bank account",
+        "description" : "Update a bank account",
+        "operationId" : "update-bank-account",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "A bank account identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "isCurrencyOverrideConfirmed",
+          "in" : "header",
+          "description" : "Is Currency override confirmed",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "false"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bank-account-id1381505874"
+                },
+                "examples" : {
+                  "update-bank-account" : {
+                    "value" : "{\n  \"bankAccountId\" : \"b28a3e11-2fef-43a4-85ea-d43e45c77e92\",\n  \"version\" : 1,\n  \"bankName\" : \"Privat Bank\",\n  \"bankCountry\" : \"UA\",\n  \"beneficiaryName\" : \"MegaBuyer\",\n  \"currencies\" : [ {\n    \"currency\" : \"USD\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"EUR\",\n    \"isDefault\" : true\n  }, {\n    \"currency\" : \"UAH\",\n    \"isDefault\" : true\n  } ],\n  \"proofOfAccountId\" : \"9ef51216-0533-4589-940c-cc54b542bcf5\",\n  \"accountName\" : \"Some UPDATED name\",\n  \"accountNumber\" : \"Account Number\",\n  \"iban\" : \"GB33BUKB20201555555555\",\n  \"swiftOrBic\" : \"DEUTDEFF\",\n  \"externalId\" : \"External Id\",\n  \"sortCode\" : \"04-00-78\",\n  \"routingNumber\" : \"122105155\",\n  \"bsbNumber\" : \"312-988\",\n  \"correspondentBankName\" : \"Correspondent Bank Name\",\n  \"correspondentBankSwift\" : \"CTBAAU2S\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/base-rates" : {
+      "get" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Find all base rates",
+        "description" : "Find all base rates",
+        "operationId" : "base-rates-find-all",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-1291146617"
+                },
+                "examples" : {
+                  "base-rates-find-all" : {
+                    "value" : "{\n  \"content\" : [ {\n    \"id\" : \"300948d9-0719-4858-9bc3-123e951cd584\",\n    \"name\" : \"USD Libor\",\n    \"currencyIsoCode\" : \"USD\",\n    \"description\" : \"Libor base rate values for USD\",\n    \"createdBy\" : \"jrocket@example.com\",\n    \"createdDate\" : \"2010-01-01T00:00:00Z\",\n    \"status\" : \"Active\",\n    \"tenorData\" : [ {\n      \"tenor\" : \"Overnight\",\n      \"rate\" : 1.53188444,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"OneWeek\",\n      \"rate\" : 1.56175555,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"TwoWeeks\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneMonth\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwoMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ThreeMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FourMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FiveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SixMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"EightMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"NineMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ElevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwelveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    } ],\n    \"usedByPrograms\" : true,\n    \"owner\" : true\n  } ],\n  \"pageNumber\" : 1,\n  \"size\" : 20,\n  \"totalElements\" : 1,\n  \"totalPages\" : 1\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Save a base rate",
+        "description" : "Save a base rate",
+        "operationId" : "base-rates-save",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/base-rates1545042914"
+              },
+              "examples" : {
+                "base-rates-save" : {
+                  "value" : "{\n  \"name\": \"USD Libor\",\n  \"currencyIsoCode\": \"USD\",\n  \"description\": \"Libor base rate values for USD\",\n  \"status\": \"Active\",\n  \"tenorData\": [\n    {\n      \"tenor\": \"Overnight\",\n      \"rate\": 1.53188444\n    },\n    {\n      \"tenor\": \"OneWeek\",\n      \"rate\": 1.56175555\n    },\n    {\n      \"tenor\": \"TwoWeeks\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"OneMonth\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"TwoMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"ThreeMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"FourMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"FiveMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"SixMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"SevenMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"EightMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"NineMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"TenMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"ElevenMonths\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"TwelveMonths\",\n      \"rate\": null\n    }\n  ]\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-1521700501"
+                },
+                "examples" : {
+                  "base-rates-save" : {
+                    "value" : "{\n  \"baseRate\" : {\n    \"id\" : \"300948d9-0719-4858-9bc3-123e951cd584\",\n    \"name\" : \"USD Libor\",\n    \"currencyIsoCode\" : \"USD\",\n    \"description\" : \"Libor base rate values for USD\",\n    \"createdBy\" : \"jrocket@example.com\",\n    \"createdDate\" : \"2010-01-01T00:00:00Z\",\n    \"status\" : \"Active\",\n    \"tenorData\" : [ {\n      \"tenor\" : \"Overnight\",\n      \"rate\" : 1.53188444,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"OneWeek\",\n      \"rate\" : 1.56175555,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"TwoWeeks\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneMonth\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwoMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ThreeMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FourMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FiveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SixMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"EightMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"NineMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ElevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwelveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    } ],\n    \"usedByPrograms\" : false,\n    \"owner\" : true\n  },\n  \"errors\" : [ ]\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/base-rates/batch" : {
+      "post" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Batch save update a base rates",
+        "description" : "Batch save update a base rates",
+        "operationId" : "base-rates-save-update-batch",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/base-rates-batch-178965755"
+              },
+              "examples" : {
+                "base-rates-save-update-batch" : {
+                  "value" : "[\n  {\n    \"name\": \"USD Libor\",\n    \"currencyIsoCode\": \"USD\",\n    \"description\": \"Libor base rate values for USD\",\n    \"status\": \"Active\",\n    \"tenorData\": [\n      {\n        \"tenor\": \"Overnight\",\n        \"rate\": 1.53188444\n      },\n      {\n        \"tenor\": \"OneWeek\",\n        \"rate\": 1.56175555\n      }\n    ]\n  }\n]"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-batch1770428283"
+                },
+                "examples" : {
+                  "base-rates-save-update-batch" : {
+                    "value" : "[ {\n  \"actionStatus\" : \"CREATED\",\n  \"name\" : \"USD Libor\",\n  \"currencyIsoCode\" : \"USD\",\n  \"errors\" : [ ]\n} ]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Batch patch a base rate",
+        "description" : "Batch patch a base rate",
+        "operationId" : "base-rates-patch-batch",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/base-rates-batch-573317796"
+              },
+              "examples" : {
+                "base-rates-patch-batch" : {
+                  "value" : "{\n  \"list\": [\n    {\n      \"id\": \"db8ce461-bdfa-4b41-b96a-bc485fb81097\",\n      \"description\": \"Patched Libor base rate values for USD\",\n      \"status\": \"Inactive\",\n      \"tenorData\": [\n        {\n          \"tenor\": \"Overnight\",\n          \"rate\": null\n        },\n        {\n          \"tenor\": \"OneWeek\",\n          \"rate\": 2.56175444\n        },\n        {\n          \"tenor\": \"ThreeMonths\",\n          \"rate\": 123.45654555\n        }\n      ]\n    }\n  ]\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-batch-758731108"
+                },
+                "examples" : {
+                  "base-rates-patch-batch" : {
+                    "value" : "[ {\n  \"baseRate\" : {\n    \"id\" : \"db8ce461-bdfa-4b41-b96a-bc485fb81097\",\n    \"name\" : \"USD Libor 2\",\n    \"currencyIsoCode\" : \"USD\",\n    \"description\" : \"Patched Libor 2 base rate values for USD\",\n    \"createdBy\" : \"jrocket@example.com\",\n    \"createdDate\" : \"2010-01-01T00:00:00Z\",\n    \"status\" : \"Inactive\",\n    \"tenorData\" : [ {\n      \"tenor\" : \"Overnight\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneWeek\",\n      \"rate\" : 2.56175444,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"TwoWeeks\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneMonth\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwoMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ThreeMonths\",\n      \"rate\" : 123.45654555,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"FourMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FiveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SixMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"EightMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"NineMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ElevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwelveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    } ],\n    \"usedByPrograms\" : false,\n    \"owner\" : true\n  },\n  \"errors\" : [ ]\n} ]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/base-rates/{id}" : {
+      "get" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Find a base rate by id",
+        "description" : "Find a base rate by id",
+        "operationId" : "base-rates-find-by-id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-id1300357279"
+                },
+                "examples" : {
+                  "base-rates-find-by-id" : {
+                    "value" : "{\n  \"id\" : \"300948d9-0719-4858-9bc3-123e951cd584\",\n  \"name\" : \"USD Libor\",\n  \"currencyIsoCode\" : \"USD\",\n  \"description\" : \"Libor base rate values for USD\",\n  \"createdBy\" : \"jrocket@example.com\",\n  \"createdDate\" : \"2010-01-01T00:00:00Z\",\n  \"status\" : \"Active\",\n  \"tenorData\" : [ {\n    \"tenor\" : \"Overnight\",\n    \"rate\" : 1.53188444,\n    \"modifiedBy\" : \"jrocket@example.com\",\n    \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n  }, {\n    \"tenor\" : \"OneWeek\",\n    \"rate\" : 1.56175555,\n    \"modifiedBy\" : \"jrocket@example.com\",\n    \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n  }, {\n    \"tenor\" : \"TwoWeeks\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"OneMonth\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"TwoMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"ThreeMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"FourMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"FiveMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"SixMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"SevenMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"EightMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"NineMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"TenMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"ElevenMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  }, {\n    \"tenor\" : \"TwelveMonths\",\n    \"rate\" : null,\n    \"modifiedBy\" : null,\n    \"modifiedDate\" : null\n  } ],\n  \"usedByPrograms\" : true,\n  \"owner\" : true\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "base-rates-controller" ],
+        "summary" : "Patch a base rate",
+        "description" : "Patch a base rate",
+        "operationId" : "base-rates-patch",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/base-rates-id230683889"
+              },
+              "examples" : {
+                "base-rates-patch" : {
+                  "value" : "{\n  \"id\": \"db8ce461-bdfa-4b41-b96a-bc485fb81097\",\n  \"description\": \"Patched Libor base rate values for USD\",\n  \"status\": \"Inactive\",\n  \"tenorData\": [\n    {\n      \"tenor\": \"Overnight\",\n      \"rate\": null\n    },\n    {\n      \"tenor\": \"OneWeek\",\n      \"rate\": 2.56175444\n    },\n    {\n      \"tenor\": \"ThreeMonths\",\n      \"rate\": 123.45654555\n    }\n  ]\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/base-rates-1521700501"
+                },
+                "examples" : {
+                  "base-rates-patch" : {
+                    "value" : "{\n  \"baseRate\" : {\n    \"id\" : \"db8ce461-bdfa-4b41-b96a-bc485fb81097\",\n    \"name\" : \"USD Libor 2\",\n    \"currencyIsoCode\" : \"USD\",\n    \"description\" : \"Patched Libor 2 base rate values for USD\",\n    \"createdBy\" : \"jrocket@example.com\",\n    \"createdDate\" : \"2010-01-01T00:00:00Z\",\n    \"status\" : \"Inactive\",\n    \"tenorData\" : [ {\n      \"tenor\" : \"Overnight\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneWeek\",\n      \"rate\" : 2.56175444,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"TwoWeeks\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"OneMonth\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwoMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ThreeMonths\",\n      \"rate\" : 123.45654555,\n      \"modifiedBy\" : \"jrocket@example.com\",\n      \"modifiedDate\" : \"2010-01-01T00:00:00Z\"\n    }, {\n      \"tenor\" : \"FourMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"FiveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SixMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"SevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"EightMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"NineMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"ElevenMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    }, {\n      \"tenor\" : \"TwelveMonths\",\n      \"rate\" : null,\n      \"modifiedBy\" : null,\n      \"modifiedDate\" : null\n    } ],\n    \"usedByPrograms\" : false,\n    \"owner\" : true\n  },\n  \"errors\" : [ ]\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data/metadata/{moduleId}/{assetType}" : {
+      "get" : {
+        "tags" : [ "Asset metadata" ],
+        "summary" : "Retrieves metadata about the asset definition.",
+        "description" : "Metadata by Module and assetType. Always returns v1",
+        "operationId" : "asset-metadata",
+        "parameters" : [ {
+          "name" : "moduleId",
+          "in" : "path",
+          "description" : "Business module ID: [\"Payment Commitment\" : 2DBF501378694CE1AC41294146286F3F, \"Receivables Discounting\" : 317052EC0A2142DF916252365A6D7EA9, \"Supplier Pay\" : 1C84033DACAC473CA8B98E10B75C3EC9, \"Receivables Purchase\" : 45BA8515B24E4D71BBFDFB233A4784C9]",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "assetType",
+          "in" : "path",
+          "description" : "AssetType: one of INVOICE, LOGISTIC, PURCHASE_ORDER",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/data-metadata-moduleId-assetType-1201259908"
+                },
+                "examples" : {
+                  "asset-metadata" : {
+                    "value" : "[{\"fieldName\":\"amount\",\"fieldType\":\"DOUBLE\",\"mandatory\":true,\"displayName\":\"Amount\",\"system\":false,\"fieldDescription\":\"Sum of Line Item costs and additional costs.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2550000\"},{\"fieldName\":\"appliedInvoiceReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Applied Invoice Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the invoice that a Credit note is applied to.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"INV-0024\"},{\"fieldName\":\"buyerApprovedInvoice\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Buyer Approved Invoice\",\"system\":false,\"fieldDescription\":\"Flag that specifies if an invoice has been approved by a buyer (Default FALSE).\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"true\"},{\"fieldName\":\"buyerName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Buyer Name\",\"system\":true,\"fieldDescription\":\"Name of the buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"buyerReference\",\"fieldType\":\"STRING\",\"mandatory\":true,\"displayName\":\"Buyer Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"buyerSubsidiaryName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Buyer Subsidiary Name\",\"system\":false,\"fieldDescription\":\"Name of the buyer subsidiary.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Mega Importer UK Ltd\"},{\"fieldName\":\"buyerSubsidiaryReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Buyer Subsidiary Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the buyer subsidiary.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"CBS 321654987\"},{\"fieldName\":\"buyerX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Buyer X500 Name\",\"system\":true,\"fieldDescription\":\"X500 of the buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"canceled\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Canceled\",\"system\":false,\"fieldDescription\":\"Flag that indicates if an invoice has been canceled.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"false\"},{\"fieldName\":\"cashPaidToDate\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Cash Paid to Date\",\"system\":false,\"fieldDescription\":\"The amount of cash that has already been paid for this invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1000\"},{\"fieldName\":\"comments\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Comments\",\"system\":false,\"fieldDescription\":\"General comments on the invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Sample comments\"},{\"fieldName\":\"createdBy\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Created By\",\"system\":false,\"fieldDescription\":\"Name of the creator of the invoice data.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Joe Finn\"},{\"fieldName\":\"createdDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Created Date\",\"system\":false,\"fieldDescription\":\"Date at which the invoice has been created in the ERP system.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"creditNoteFlag\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Credit Note Flag\",\"system\":false,\"fieldDescription\":\"Flag to specify if this Invoice is a Credit Note.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"false\"},{\"fieldName\":\"currency\",\"fieldType\":\"CURRENCY\",\"mandatory\":true,\"displayName\":\"Currency\",\"system\":false,\"fieldDescription\":\"Currency of invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"EUR\"},{\"fieldName\":\"dilutions\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Dilutions\",\"system\":false,\"fieldDescription\":\"This is the amount of reductions in financial obligations for the Buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"20000.5\"},{\"fieldName\":\"goodsDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Goods Description\",\"system\":false,\"fieldDescription\":\"Description of the goods included in this invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"25 * ETron DriveTrain\"},{\"fieldName\":\"insurance\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Insurance\",\"system\":false,\"fieldDescription\":\"A collection of insurance details associated with the Invoice\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"insuranceRequired\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Insurance Required\",\"system\":false,\"fieldDescription\":\"Indicates that insurance is required.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"true\"},{\"fieldName\":\"insuranceProviderReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Provider Reference\",\"system\":false,\"fieldDescription\":\"Additional reference identifier or name value for the insurance provider.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"AIG_123456\"},{\"fieldName\":\"insuranceProviderName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Provider Name\",\"system\":false,\"fieldDescription\":\"Name of Insurer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"AIG\"},{\"fieldName\":\"insuranceProviderX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Provider X500\",\"system\":false,\"fieldDescription\":\"X500 identifier of Insurer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Sample Insurance Provider X500\"},{\"fieldName\":\"insurancePolicyNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Policy Number\",\"system\":false,\"fieldDescription\":\"Policy number issued by the insurer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"99999999-1\"},{\"fieldName\":\"insurancePolicyName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Policy Name\",\"system\":false,\"fieldDescription\":\"Policy name issued by the insurer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Cargo Insurance Policy\"},{\"fieldName\":\"insuredAmount\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Insured Amount\",\"system\":false,\"fieldDescription\":\"The amount of the invoice that is insured.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"150000.55\"},{\"fieldName\":\"insuredPercentage\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Insured Percentage\",\"system\":false,\"fieldDescription\":\"The percentage of the asset that is being insured.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"85\"},{\"fieldName\":\"insuredCurrency\",\"fieldType\":\"CURRENCY\",\"mandatory\":false,\"displayName\":\"Insured Currency\",\"system\":false,\"fieldDescription\":\"The currency of the insured amount.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"USD\"},{\"fieldName\":\"insuranceFeeAmount\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Insurance Fee Amount\",\"system\":false,\"fieldDescription\":\"The fee or premium paid to obtain insurance coverage on the invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1500.55\"},{\"fieldName\":\"insuranceStartDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Insurance Start Date\",\"system\":false,\"fieldDescription\":\"The date the insurance policy became effective.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"insuranceExpiryDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Insurance Expiry Date\",\"system\":false,\"fieldDescription\":\"The expiry date of the insurance policy.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"insurancePolicyCurrency\",\"fieldType\":\"CURRENCY\",\"mandatory\":false,\"displayName\":\"Insurance Policy Currency\",\"system\":false,\"fieldDescription\":\"Currency of the insurance policy.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"EUR\"},{\"fieldName\":\"insurancePolicyHolder\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Policy Holder\",\"system\":false,\"fieldDescription\":\"The name of the insurance policy holder.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"insuranceLossPayee\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Loss Payee\",\"system\":false,\"fieldDescription\":\"The loss payee in the event of a claim.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"instituteCargoClause\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Institute Cargo Clause\",\"system\":false,\"fieldDescription\":\"Specifies items in the cargo covered should there be damage or loss to the shipment.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"A\"},{\"fieldName\":\"insuranceJurisdiction\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Insurance Jurisdiction\",\"system\":false,\"fieldDescription\":\"The jurisdiction and applicable law of the insurance policy.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"England and Wales\"},{\"fieldName\":\"clauses\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Clauses\",\"system\":false,\"fieldDescription\":\"This field can be used for adding insurance clauses related to this transaction.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":{\"fieldName\":\"customClauses\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"references\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"References\",\"system\":false,\"fieldDescription\":\"This field can be used for adding insurance references related to this transaction.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":{\"fieldName\":\"customReferences\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"invoiceNumber\",\"fieldType\":\"STRING\",\"mandatory\":true,\"displayName\":\"Invoice Number\",\"system\":false,\"fieldDescription\":\"Unique number assigned to the invoice provided by the supplier.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"INV0002\"},{\"fieldName\":\"lineItems\",\"fieldType\":\"ARRAY\",\"mandatory\":false,\"displayName\":\"Line Items\",\"system\":false,\"fieldDescription\":\"A collection of the line items included in this invoice.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"lineItemNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Line Item Number\",\"system\":false,\"fieldDescription\":\"Line item number generated on ERP system.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1\"},{\"fieldName\":\"sku\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Supplier SKU\",\"system\":false,\"fieldDescription\":\"The SKU (stock keeping unit) is the supplier’s product reference code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Tra/Ele/80S/30S\"},{\"fieldName\":\"manufacturerName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Manufacturer Name\",\"system\":false,\"fieldDescription\":\"The name of the item manufacturer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Etrain Group\"},{\"fieldName\":\"manufacturerPartNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Manufacturer Part Number\",\"system\":false,\"fieldDescription\":\"The MPN is the series of numbers/letters given to the part by the manufacturer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"TSR-1002\"},{\"fieldName\":\"unspsCode\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"UNSPS Code\",\"system\":false,\"fieldDescription\":\"The United Nations Standard Products and Services Code (UNSPSC) is a taxonomy of products and services for use in eCommerce. It is a four-level hierarchy coded as an eight-digit number, with an optional fifth level.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"25121504\"},{\"fieldName\":\"hsCode\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"HS Code\",\"system\":false,\"fieldDescription\":\"The Harmonized System (HS) is an international nomenclature for the classification of products. It allows participating countries to classify traded goods on a common basis for customs purposes.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"86021000\"},{\"fieldName\":\"shortDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Short Product or Services Description\",\"system\":false,\"fieldDescription\":\"Describes the goods or services with a short description.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Cubic Metal White Locomotive\"},{\"fieldName\":\"extendedDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Extended Product or Services Description\",\"system\":false,\"fieldDescription\":\"Describes the goods or services in as much detail as necessary.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Number of cylinders: 12. Compression ratio: 16:1. Displacement per cylinder: 11.6 L (710 in3) Cylinder bore: 230 mm (9.2 inches). Cylinder stroke: 279 mm (11.1 inches). Full speed: 904 rpm. Normal idle speed: 269 rpm.\"},{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit of Measure\",\"system\":false,\"fieldDescription\":\"Description of the unit of measure for the line item.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Single Item\"},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"Represents the number of units being shipped for the associated line item. The quantity is the quantity of the unit of measure.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1\"},{\"fieldName\":\"unitPrice\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Unit Price\",\"system\":false,\"fieldDescription\":\"The price of the goods being shipped for the specific line item.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1250000\"},{\"fieldName\":\"extendedPriceBeforeTax\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Extended Price Before Tax\",\"system\":false,\"fieldDescription\":\"The quantity ordered multiplied by the line item unit price excluding tax.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1000000\"},{\"fieldName\":\"extendedPriceAfterTax\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Extended Price After Tax\",\"system\":false,\"fieldDescription\":\"The quantity ordered multiplied by the line item unit price including tax.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1500000\"},{\"fieldName\":\"origin\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Origin\",\"system\":false,\"fieldDescription\":\"Country(s) of origin the goods are from.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"France\"},{\"fieldName\":\"taxType\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Tax Type\",\"system\":false,\"fieldDescription\":\"Name of tax applied which will depend on the jurisdiction (e.g VAT or GST).\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"VAT\"},{\"fieldName\":\"taxPercentage\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Tax Percentage\",\"system\":false,\"fieldDescription\":\"Percentage of tax applied to product (e.g. 20%).\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"10\"},{\"fieldName\":\"taxAmount\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Tax Amount\",\"system\":false,\"fieldDescription\":\"Amount of tax included on unit price.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"10000\"},{\"fieldName\":\"poNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"PO Number\",\"system\":false,\"fieldDescription\":\"Purchase Order Number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"PO987654321\"},{\"fieldName\":\"poLineItemNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"PO Line Item Number\",\"system\":false,\"fieldDescription\":\"Purchase Order Line Item Number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"12\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"logistics\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Logistics\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"consigneeName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignee Name\",\"system\":false,\"fieldDescription\":\"Name of the consignee.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"consigneeReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignee Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the consignee.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"consigneeX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignee X500\",\"system\":false,\"fieldDescription\":\"X500 of the Consignee.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"OU=Importer Ltd, O=Tradeix, L=Dublin, C=IE\"},{\"fieldName\":\"consignorName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignor Name\",\"system\":false,\"fieldDescription\":\"Name of the consignor.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Exporter Pte Ltd\"},{\"fieldName\":\"consignorReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignor Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the consignor.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Exporter Pte Ltd\"},{\"fieldName\":\"consignorX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Consignor X500\",\"system\":false,\"fieldDescription\":\"X500 of the Consignor.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"OU=Exporter Pte Ltd, O=Tradeix, L=Dublin, C=IE\"},{\"fieldName\":\"createdBy\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Created By\",\"system\":false,\"fieldDescription\":\"Name of the creator of the logistics data.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Joe Finn\"},{\"fieldName\":\"canceled\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Canceled\",\"system\":false,\"fieldDescription\":\"Flag that indicates if an invoice has been canceled.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"false\"},{\"fieldName\":\"goodsDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Goods Description\",\"system\":false,\"fieldDescription\":\"Description of the goods included in the logistics data.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"25 * ETron DriveTrain\"},{\"fieldName\":\"hazardousGoods\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Hazardous Goods\",\"system\":false,\"fieldDescription\":\"Indicates that shipment contains hazardous goods.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"false\"},{\"fieldName\":\"incoTerms\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Incoterms\",\"system\":false,\"fieldDescription\":\"Used international commercial terms for clarifying the obligations of buyers and sellers.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"CIF\"},{\"fieldName\":\"notifyPartyName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Notify Party Name\",\"system\":false,\"fieldDescription\":\"Name of party that needs to be notified when the shipment arrives at destination.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Importer Ltd\"},{\"fieldName\":\"specialInstructions\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Special Instructions\",\"system\":false,\"fieldDescription\":\"Text for special handling instructions.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Remove packing material from the area prior to handling.\"},{\"fieldName\":\"trackingNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Tracking Number\",\"system\":false,\"fieldDescription\":\"Tracking Number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"ABC-DE-1234567\"},{\"fieldName\":\"logisticsServiceProviderReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Logistics Service Provider Reference\",\"system\":false,\"fieldDescription\":\"The external reference of Logistics Service Provider.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"LSP-REF-0001\"},{\"fieldName\":\"logisticsServiceProviderName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Logistics Service Provider Name\",\"system\":false,\"fieldDescription\":\"Name of the Logistics Service Provider.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"DHL\"},{\"fieldName\":\"logisticsServiceProviderX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Logistics Service Provider x500\",\"system\":false,\"fieldDescription\":\"x500 of the Logistics Service Provider.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"OU=Cargo Ltd, O=Tradeix, L=Dublin, C=IE\"},{\"fieldName\":\"incoTermsLocation\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Incoterms Location\",\"system\":false,\"fieldDescription\":\"Location applicable to the Incoterms.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Ukraine\"},{\"fieldName\":\"trackingSystem\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Tracking System\",\"system\":false,\"fieldDescription\":\"The tracking system name or URL.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"www.tracking-system-sample.com\"},{\"fieldName\":\"partialShipmentsAllowed\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Partial Shipments Allowed\",\"system\":false,\"fieldDescription\":\"Indicates partial shipment in two or more shipments permitted.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"true\"},{\"fieldName\":\"transhipmentAllowed\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Transhipment Allowed\",\"system\":false,\"fieldDescription\":\"Indicates transhipment to intermediate location permitted.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"true\"},{\"fieldName\":\"multipleShipToAddress\",\"fieldType\":\"BOOLEAN\",\"mandatory\":false,\"displayName\":\"Multiple Ship to Address\",\"system\":false,\"fieldDescription\":\"Indicates multiple ship to address's permitted.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"true\"},{\"fieldName\":\"numberOfShipmentsToDate\",\"fieldType\":\"INT\",\"mandatory\":false,\"displayName\":\"Number of Shipments to Date\",\"system\":false,\"fieldDescription\":\"Number of shipments made in relation to this transaction.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2\"},{\"fieldName\":\"carrierName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Carrier Name\",\"system\":false,\"fieldDescription\":\"The company or a person legally entitled to transport goods by land, water, and air. Usually, the carrier works with shippers to ship goods from one place to the other.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"International Carrier Company\"},{\"fieldName\":\"origin\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Origin\",\"system\":false,\"fieldDescription\":\"Country(s) of origin the goods are from.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"France\"},{\"fieldName\":\"totalExtendedPriceBeforeTax\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Total Extended Price Before Tax\",\"system\":false,\"fieldDescription\":\"Sum of extended price of all line items excluding tax.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1000\"},{\"fieldName\":\"totalExtendedPriceAfterTax\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Total Extended Price After Tax\",\"system\":false,\"fieldDescription\":\"Sum of extended price of all line items including tax.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1000\"},{\"fieldName\":\"version\",\"fieldType\":\"INT\",\"mandatory\":false,\"displayName\":\"Version\",\"system\":false,\"fieldDescription\":\"System generated Logistics version number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"1\"},{\"fieldName\":\"versionDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Version Date\",\"system\":false,\"fieldDescription\":\"System generated Logistics version date.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-25\"},{\"fieldName\":\"status\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Status\",\"system\":false,\"fieldDescription\":\"Logistics status.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Accepted on Program\"},{\"fieldName\":\"invoices\",\"fieldType\":\"ARRAY\",\"mandatory\":false,\"displayName\":\"Invoices\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"invoiceNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Invoice Number(s)\",\"system\":false,\"fieldDescription\":\"Unique number assigned to the invoice provided by the supplier.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"18025-001\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"purchaseOrders\",\"fieldType\":\"ARRAY\",\"mandatory\":false,\"displayName\":\"Purchase Orders\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"purchaseOrderNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Purchase Order Number(s)\",\"system\":false,\"fieldDescription\":\"Unique number assigned to the PO provided by the buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"PO1000-004\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"contacts\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Contacts\",\"system\":false,\"fieldDescription\":\"A collection of the entities contact details.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"notifyPartyContactDetails\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Notify Party Contact Details\",\"system\":false,\"fieldDescription\":\"Contact details of the notified party.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"firstName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"First Name\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Joe\"},{\"fieldName\":\"lastName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Last Name\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Finn\"},{\"fieldName\":\"emailAddress\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"E-Mail Address\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"JoeFinn@email.com\"},{\"fieldName\":\"contactNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Contact Number\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"+380 00 000 00 00\"}],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":{\"fieldName\":\"customContact\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Custom object\",\"system\":false,\"fieldDescription\":\"This is a custom object, added by user\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"firstName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"First Name\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"lastName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Last Name\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"emailAddress\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"E-Mail Address\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"contactNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Contact Number\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"addresses\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Addresses\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"shipToAddress\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Ship to Address\",\"system\":false,\"fieldDescription\":\"Ship to Address.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"addressLine1\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 1\",\"system\":false,\"fieldDescription\":\"Address Line 1.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"3 Bogan Grove\"},{\"fieldName\":\"addressLine2\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 2\",\"system\":false,\"fieldDescription\":\"Address Line 2.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Dock 123\"},{\"fieldName\":\"addressLine3\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 3\",\"system\":false,\"fieldDescription\":\"Address Line 3.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"addressLine4\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 4\",\"system\":false,\"fieldDescription\":\"Address Line 4.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"code\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Code\",\"system\":false,\"fieldDescription\":\"Code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"6920\"},{\"fieldName\":\"city\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"City\",\"system\":false,\"fieldDescription\":\"City.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Austinston\"},{\"fieldName\":\"region\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Region\",\"system\":false,\"fieldDescription\":\"Region.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Bay of Plenty\"},{\"fieldName\":\"country\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Country\",\"system\":false,\"fieldDescription\":\"Country.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"New Zealand\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"consignorAddress\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Consignor Address\",\"system\":false,\"fieldDescription\":\"Consignor Address.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"addressLine1\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 1\",\"system\":false,\"fieldDescription\":\"Address Line 1.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"3 Bogan Grove\"},{\"fieldName\":\"addressLine2\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 2\",\"system\":false,\"fieldDescription\":\"Address Line 2.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Dock 123\"},{\"fieldName\":\"addressLine3\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 3\",\"system\":false,\"fieldDescription\":\"Address Line 3.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"addressLine4\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 4\",\"system\":false,\"fieldDescription\":\"Address Line 4.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"code\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Code\",\"system\":false,\"fieldDescription\":\"Code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"6920\"},{\"fieldName\":\"city\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"City\",\"system\":false,\"fieldDescription\":\"City.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Austinston\"},{\"fieldName\":\"region\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Region\",\"system\":false,\"fieldDescription\":\"Region.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Bay of Plenty\"},{\"fieldName\":\"country\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Country\",\"system\":false,\"fieldDescription\":\"Country.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"New Zealand\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"consigneeAddress\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Consignee Address\",\"system\":false,\"fieldDescription\":\"Consignee Address.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"addressLine1\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 1\",\"system\":false,\"fieldDescription\":\"Address Line 1.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"3 Bogan Grove\"},{\"fieldName\":\"addressLine2\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 2\",\"system\":false,\"fieldDescription\":\"Address Line 2.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Dock 123\"},{\"fieldName\":\"addressLine3\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 3\",\"system\":false,\"fieldDescription\":\"Address Line 3.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"addressLine4\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 4\",\"system\":false,\"fieldDescription\":\"Address Line 4.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"code\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Code\",\"system\":false,\"fieldDescription\":\"Code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"6920\"},{\"fieldName\":\"city\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"City\",\"system\":false,\"fieldDescription\":\"City.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Austinston\"},{\"fieldName\":\"region\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Region\",\"system\":false,\"fieldDescription\":\"Region.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Bay of Plenty\"},{\"fieldName\":\"country\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Country\",\"system\":false,\"fieldDescription\":\"Country.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"New Zealand\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"notifyPartyAddress\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Notify Party Address\",\"system\":false,\"fieldDescription\":\"Notify Party Address.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"addressLine1\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 1\",\"system\":false,\"fieldDescription\":\"Address Line 1.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"3 Bogan Grove\"},{\"fieldName\":\"addressLine2\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 2\",\"system\":false,\"fieldDescription\":\"Address Line 2.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Dock 123\"},{\"fieldName\":\"addressLine3\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 3\",\"system\":false,\"fieldDescription\":\"Address Line 3.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"addressLine4\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 4\",\"system\":false,\"fieldDescription\":\"Address Line 4.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Optional\"},{\"fieldName\":\"code\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Code\",\"system\":false,\"fieldDescription\":\"Code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"6920\"},{\"fieldName\":\"city\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"City\",\"system\":false,\"fieldDescription\":\"City.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Austinston\"},{\"fieldName\":\"region\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Region\",\"system\":false,\"fieldDescription\":\"Region.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Bay of Plenty\"},{\"fieldName\":\"country\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Country\",\"system\":false,\"fieldDescription\":\"Country.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"New Zealand\"}],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":{\"fieldName\":\"customAddress\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Custom object\",\"system\":false,\"fieldDescription\":\"This is a custom object, added by user\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"addressLine1\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 1\",\"system\":false,\"fieldDescription\":\"Address Line 1.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"addressLine2\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 2\",\"system\":false,\"fieldDescription\":\"Address Line 2.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"addressLine3\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 3\",\"system\":false,\"fieldDescription\":\"Address Line 3.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"addressLine4\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Address Line 4\",\"system\":false,\"fieldDescription\":\"Address Line 4.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"code\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Code\",\"system\":false,\"fieldDescription\":\"Code.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"city\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"City\",\"system\":false,\"fieldDescription\":\"City.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"region\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Region\",\"system\":false,\"fieldDescription\":\"Region.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"country\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Country\",\"system\":false,\"fieldDescription\":\"Country.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"freights\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Freights\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"firstVesselName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"First Vessel Name\",\"system\":false,\"fieldDescription\":\"Name of the first vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"AF PIONEER\"},{\"fieldName\":\"firstVesselIMONumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"First Vessel IMO Number\",\"system\":false,\"fieldDescription\":\"IMO number of the first vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"IMO 9999999\"},{\"fieldName\":\"firstVoyageNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"First Voyage Number\",\"system\":false,\"fieldDescription\":\"Voyage number of first leg vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"V.284\"},{\"fieldName\":\"secondVesselName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Second Vessel Name\",\"system\":false,\"fieldDescription\":\"Name of the second vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"AF PIONEER-2\"},{\"fieldName\":\"secondVesselIMONumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Second Vessel IMO Number\",\"system\":false,\"fieldDescription\":\"IMO number of the second vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"IMO 8888888\"},{\"fieldName\":\"secondVoyageNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Second Voyage Number\",\"system\":false,\"fieldDescription\":\"Voyage number of second leg vessel.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"V.285\"},{\"fieldName\":\"transportationMode\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Transportation Mode\",\"system\":false,\"fieldDescription\":\"Type of transport being used.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Sea\"},{\"fieldName\":\"carrierName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Carrier Name\",\"system\":false,\"fieldDescription\":\"The company or a person legally entitled to transport goods by land, water, and air. Usually, the carrier works with shippers to ship goods from one place to the other.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"International Carrier Company\"},{\"fieldName\":\"equipment\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Equipment\",\"system\":false,\"fieldDescription\":\"Type of equipment used.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Cargo Crane\"},{\"fieldName\":\"shippedOnboardNotation\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Shipped Onboard Notation\",\"system\":false,\"fieldDescription\":\"Notation that the goods have been loaded on board\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"testNotation\"},{\"fieldName\":\"shippedOndeckNotation\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Shipped Ondeck Notation\",\"system\":false,\"fieldDescription\":\"Notation that the goods have been loaded on deck\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"testNotation\"}],\"additionalProperties\":{\"fieldName\":\"customFreight\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"packaging\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Packaging\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"numberAndKindOfPackages\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Number And Kind Of Packages\",\"system\":false,\"fieldDescription\":\"Number and kind of packages of shipment.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit Of Measure\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Single Unit\"},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"25\"},{\"fieldName\":\"packageDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Package Description\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"ETRON DriveTrain\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"grossWeight\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Gross Weight\",\"system\":false,\"fieldDescription\":\"Gross weight of shipment.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit Of Measure\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Kilograms\"},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2500\"},{\"fieldName\":\"packageDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Package Description\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"gross weight of ETRON DriveTrains\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"volumeOfShipment\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Volume Of Shipment\",\"system\":false,\"fieldDescription\":\"Volume of shipment.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit Of Measure\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Cubic Meters\"},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"30\"},{\"fieldName\":\"packageDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Package Description\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Volume of shipment\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"chargeableWeight\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Chargeable Weight\",\"system\":false,\"fieldDescription\":\"Chargeable weight of shipment.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit Of Measure\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Kilograms\"},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"3000\"},{\"fieldName\":\"packageDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Package Description\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Chargeable weight of shipment\"}],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":{\"fieldName\":\"customPackaging\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom object, added by user\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"unitOfMeasure\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Unit Of Measure\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"quantity\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Quantity\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"packageDescription\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Package Description\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"locations\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Locations\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"portOrPlaceOfLoading\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Port or Place of Loading\",\"system\":false,\"fieldDescription\":\"Port or place of loading.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"name\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Name\",\"system\":false,\"fieldDescription\":\"Port or place of loading name.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Yangshan Port , Shanghai, China\"},{\"fieldName\":\"latitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Latitude\",\"system\":false,\"fieldDescription\":\"Port or place of loading latitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"24.47839\"},{\"fieldName\":\"longitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Longitude\",\"system\":false,\"fieldDescription\":\"Port or place of loading longitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"112.626266\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"portOrPlaceOfDestination\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Port or Place of Destination\",\"system\":false,\"fieldDescription\":\"Port or place of destination.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"name\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Name\",\"system\":false,\"fieldDescription\":\"Port or place of destination name.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Yangshan Port , Shanghai, China\"},{\"fieldName\":\"latitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Latitude\",\"system\":false,\"fieldDescription\":\"Port or place of destination latitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"24.47839\"},{\"fieldName\":\"longitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Longitude\",\"system\":false,\"fieldDescription\":\"Port or place of destination longitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"112.626266\"}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"portOrPlaceOfTransshipping\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Port or Place of Transshipping\",\"system\":false,\"fieldDescription\":\"Port or place of transshipping.\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"name\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Name\",\"system\":false,\"fieldDescription\":\"Port or place of transshipping name.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Yangshan Port , Shanghai, China\"},{\"fieldName\":\"latitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Latitude\",\"system\":false,\"fieldDescription\":\"Port or place of transshipping latitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"24.47839\"},{\"fieldName\":\"longitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Longitude\",\"system\":false,\"fieldDescription\":\"Port or place of transshipping longitude.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"112.626266\"}],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":{\"fieldName\":\"customLocation\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Custom Object\",\"system\":false,\"fieldDescription\":\"This is a custom object, added by user\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"name\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Name\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"latitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Latitude\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"longitude\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Longitude\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"dateTimeEvents\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Date Time Events\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"estimatedTimeOfDeparture\",\"fieldType\":\"DATE_TIME\",\"mandatory\":false,\"displayName\":\"Estimated Time Of Departure\",\"system\":false,\"fieldDescription\":\"Estimated Time of Departure.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28T12:30:00Z\"},{\"fieldName\":\"estimatedTimeOfArrival\",\"fieldType\":\"DATE_TIME\",\"mandatory\":false,\"displayName\":\"Estimated Time Of Arrival\",\"system\":false,\"fieldDescription\":\"Estimated Time Of Arrival.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28T12:30:00Z\"},{\"fieldName\":\"actualTimeOfDeparture\",\"fieldType\":\"DATE_TIME\",\"mandatory\":false,\"displayName\":\"Actual Time Of Departure\",\"system\":false,\"fieldDescription\":\"Actual Time Of Departure.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28T12:30:00Z\"},{\"fieldName\":\"actualTimeOfArrival\",\"fieldType\":\"DATE_TIME\",\"mandatory\":false,\"displayName\":\"Actual Time Of Arrival\",\"system\":false,\"fieldDescription\":\"Actual Time Of Arrival.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-07-02T12:30:00Z\"}],\"additionalProperties\":{\"fieldName\":\"customDateTimeEvent\",\"fieldType\":\"DATE_TIME\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"dateEvents\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"Date Events\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"damaged\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Damaged\",\"system\":false,\"fieldDescription\":\"Shipment damage event.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"booked\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Booked\",\"system\":false,\"fieldDescription\":\"Shipment booking event.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"arrived\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Arrived\",\"system\":false,\"fieldDescription\":\"Date of arrival to destination port/place.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"cleared\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Cleared\",\"system\":false,\"fieldDescription\":\"Date shipment has cleared customs.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"delivered\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Delivered\",\"system\":false,\"fieldDescription\":\"Date of shipment delivery.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"departed\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Departed\",\"system\":false,\"fieldDescription\":\"Date shipment has departed from origin port/place.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"pickedUp\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Picked up\",\"system\":false,\"fieldDescription\":\"Date shipment is picked up.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"earliestShipmentDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Earliest Shipment Date\",\"system\":false,\"fieldDescription\":\"Earliest shipment date.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"latestShipmentDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Latest Shipment Date\",\"system\":false,\"fieldDescription\":\"Latest shipment date.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"}],\"additionalProperties\":{\"fieldName\":\"customDateEvent\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"references\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"References\",\"system\":false,\"fieldDescription\":\"\",\"calculated\":false,\"metadata\":[{\"fieldName\":\"containerNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Container Number\",\"system\":false,\"fieldDescription\":\"Reference number of the container.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"MSKU 907032-3\"},{\"fieldName\":\"sealNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Seal Number\",\"system\":false,\"fieldDescription\":\"Reference number of the seal.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"APHU7124611\"},{\"fieldName\":\"billOfLadingNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Bill Of Lading Number\",\"system\":false,\"fieldDescription\":\"Reference number of the Bill of Lading.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"MAEU123456789\"},{\"fieldName\":\"houseBillOfLadingNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"House Bill Of Lading Number\",\"system\":false,\"fieldDescription\":\"Reference number of the House Bill of Lading.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"TB-DT015930\"},{\"fieldName\":\"masterAirwayBillNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Master Airway Bill Number\",\"system\":false,\"fieldDescription\":\"Reference number of the Master Airway Bill.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"180-123456789\"},{\"fieldName\":\"houseAirwayBillNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"House Airway Bill Number\",\"system\":false,\"fieldDescription\":\"Reference number of the House Airway Bill.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"PNH-1234567\"},{\"fieldName\":\"unDangerousGoodsNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"UN Dangerous Goods Number\",\"system\":false,\"fieldDescription\":\"UN issued four-digit numbers that identify hazardous materials, and articles in the framework of international transport.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"UN 0029\"},{\"fieldName\":\"externalReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"External Reference Number\",\"system\":false,\"fieldDescription\":\"Optional external reference number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"REF-987654321\"},{\"fieldName\":\"internalReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Internal Reference Number\",\"system\":false,\"fieldDescription\":\"Optional internal reference number.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"REF-12345\"}],\"additionalProperties\":{\"fieldName\":\"customReferences\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null}],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"origin\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Origin\",\"system\":false,\"fieldDescription\":\"Country(s) of origin the goods are from.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"France\"},{\"fieldName\":\"paymentDueDate\",\"fieldType\":\"DATE\",\"mandatory\":true,\"displayName\":\"Payment Due Date\",\"system\":false,\"fieldDescription\":\"Date on which the invoice payment is due.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"2020-12-28\"},{\"fieldName\":\"paymentTerms\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Payment Terms\",\"system\":false,\"fieldDescription\":\"Payment terms related to the invoice.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"60 days\"},{\"fieldName\":\"poNumber\",\"fieldType\":\"STRING\",\"mandatory\":true,\"displayName\":\"PO Number\",\"system\":false,\"fieldDescription\":\"Unique number assigned to the invoice provided by the buyer.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"PO987654321\"},{\"fieldName\":\"references\",\"fieldType\":\"OBJECT\",\"mandatory\":false,\"displayName\":\"References\",\"system\":false,\"fieldDescription\":\"A clear text description of the reference entry.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":{\"fieldName\":\"customReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Custom Field\",\"system\":false,\"fieldDescription\":\"This is a custom field, added by user\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},\"exampleValue\":null},{\"fieldName\":\"sumOfInvoiceAmount\",\"fieldType\":\"DOUBLE\",\"mandatory\":false,\"displayName\":\"Sum of Invoice Amount\",\"system\":true,\"fieldDescription\":\"Sum of Invoice Amount(s) linked to a Purchase Order.\",\"calculated\":true,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"supplierName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Supplier Name\",\"system\":true,\"fieldDescription\":\"Name of the supplier.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"supplierReference\",\"fieldType\":\"STRING\",\"mandatory\":true,\"displayName\":\"Supplier Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the supplier.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Exporter Pte Ltd\"},{\"fieldName\":\"supplierSubsidiaryName\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Supplier Subsidiary Name\",\"system\":false,\"fieldDescription\":\"Name of the supplier subsidiary.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"Mega Exporter Pte Ltd\"},{\"fieldName\":\"supplierSubsidiaryReference\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Supplier Subsidiary Reference\",\"system\":false,\"fieldDescription\":\"Reference number of the supplier subsidiary.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"CBS 321654988\"},{\"fieldName\":\"supplierX500\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Supplier X500 Name\",\"system\":true,\"fieldDescription\":\"x500 of supplier.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null},{\"fieldName\":\"trackingNumber\",\"fieldType\":\"STRING\",\"mandatory\":false,\"displayName\":\"Tracking Number\",\"system\":false,\"fieldDescription\":\"Reference number used for linking invoice and logistics data.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":\"ABC-DE-1234567\"},{\"fieldName\":\"versionDate\",\"fieldType\":\"DATE\",\"mandatory\":false,\"displayName\":\"Version Date\",\"system\":true,\"fieldDescription\":\"System generated invoice version date.\",\"calculated\":false,\"metadata\":[],\"additionalProperties\":null,\"exampleValue\":null}]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/reconciliation/metadata" : {
+      "get" : {
+        "tags" : [ "Payment metadata" ],
+        "summary" : "Retrieves metadata about the reconciliation file definition",
+        "description" : "Retrieves metadata about the reconciliation file definition",
+        "operationId" : "payment-metadata",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/payments-reconciliation-metadata-910794042"
+                },
+                "examples" : {
+                  "payment-metadata" : {
+                    "value" : "[ {\n  \"displayName\" : \"Invoice Number\",\n  \"fieldName\" : \"invoiceNumber\",\n  \"fieldDescription\" : \"Unique number assigned to the invoice provided by the supplier\",\n  \"fieldType\" : \"STRING\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Currency\",\n  \"fieldName\" : \"currency\",\n  \"fieldDescription\" : \"Payment Currency\",\n  \"fieldType\" : \"STRING\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Supplier Reference\",\n  \"fieldName\" : \"supplierRef\",\n  \"fieldDescription\" : \"The reference of the Supplier\",\n  \"fieldType\" : \"STRING\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Buyer Name\",\n  \"fieldName\" : \"buyerRef\",\n  \"fieldDescription\" : \"The reference of the Buyer\",\n  \"fieldType\" : \"STRING\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Payment Reference\",\n  \"fieldName\" : \"paymentReference\",\n  \"fieldDescription\" : \"Payment Reference\",\n  \"fieldType\" : \"STRING\",\n  \"calculated\" : false,\n  \"mandatory\" : false,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Paid Amount\",\n  \"fieldName\" : \"paidAmount\",\n  \"fieldDescription\" : \"Paid Amount\",\n  \"fieldType\" : \"DOUBLE\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n}, {\n  \"displayName\" : \"Dilution\",\n  \"fieldName\" : \"dilution\",\n  \"fieldDescription\" : \"Dilution\",\n  \"fieldType\" : \"DOUBLE\",\n  \"calculated\" : false,\n  \"mandatory\" : true,\n  \"system\" : false\n} ]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routing-rules" : {
+      "post" : {
+        "tags" : [ "routing-rule" ],
+        "summary" : "Create routing rule",
+        "description" : "Create routing rule",
+        "operationId" : "routing-rule-create",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/routing-rules1457990264"
+              },
+              "examples" : {
+                "routing-rule-create" : {
+                  "value" : "{\n  \"type\": \"INVOICE\",\n  \"currency\": \"USD\",\n  \"moduleId\": \"317052EC0A2142DF916252365A6D7EA9\",\n  \"preferenceOrder\": 1\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/routing-rules-id486549215"
+                },
+                "examples" : {
+                  "routing-rule-create" : {
+                    "value" : "{\"id\":\"e0c4d0c3-3e88-4542-8cb4-8d5fe09aea32\",\"type\":\"INVOICE\",\"currency\":\"USD\",\"moduleId\":\"317052EC0A2142DF916252365A6D7EA9\",\"preferenceOrder\":1}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routing-rules/" : {
+      "get" : {
+        "tags" : [ "routing-rule" ],
+        "summary" : "Get all routing rules",
+        "description" : "Get all routing rules",
+        "operationId" : "routing-rule-get-all",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/routing-rules--620197806"
+                },
+                "examples" : {
+                  "routing-rule-get-all" : {
+                    "value" : "{\"content\":[{\"id\":\"1a4d8ad0-5047-4cf4-99f7-c53ac7d40b30\",\"type\":\"INVOICE\",\"currency\":\"USD\",\"moduleId\":\"317052EC0A2142DF916252365A6D7EA9\",\"preferenceOrder\":1}],\"pageNumber\":0,\"size\":20,\"totalElements\":1,\"totalPages\":1}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routing-rules/{id}" : {
+      "get" : {
+        "tags" : [ "routing-rule" ],
+        "summary" : "Get routing rule by ID",
+        "description" : "Get routing rule by ID",
+        "operationId" : "routing-rule-get-by-id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Routing rule UUID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/routing-rules-id-1454486298"
+                },
+                "examples" : {
+                  "routing-rule-get-by-id" : {
+                    "value" : "{\"id\":\"1a4d8ad0-5047-4cf4-99f7-c53ac7d40b30\",\"type\":\"INVOICE\",\"currency\":\"USD\",\"moduleId\":\"317052EC0A2142DF916252365A6D7EA9\",\"preferenceOrder\":1}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "routing-rule" ],
+        "summary" : "Update routing rule",
+        "description" : "Update routing rule",
+        "operationId" : "routing-rule-update",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Rule ID, UUID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/routing-rules-id706411272"
+              },
+              "examples" : {
+                "routing-rule-update" : {
+                  "value" : "{\n  \"type\": \"INVOICE\",\n  \"currency\": \"USD\",\n  \"moduleId\": \"317052EC0A2142DF916252365A6D7EA9\",\n  \"preferenceOrder\": 2\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/routing-rules-id486549215"
+                },
+                "examples" : {
+                  "routing-rule-update" : {
+                    "value" : "{\"id\":\"0f434f57-bf14-4023-ad9e-9b07057b4dcf\",\"type\":\"INVOICE\",\"currency\":\"USD\",\"moduleId\":\"317052EC0A2142DF916252365A6D7EA9\",\"preferenceOrder\":2}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "routing-rule" ],
+        "summary" : "Delete routing rule",
+        "description" : "Delete routing rule",
+        "operationId" : "routing-rule-delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Rule ID, UUID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "base-rates-1521700501" : {
+        "type" : "object",
+        "properties" : {
+          "baseRate" : {
+            "type" : "object",
+            "properties" : {
+              "owner" : {
+                "type" : "boolean",
+                "description" : "Base rate belongs to this platform"
+              },
+              "createdDate" : {
+                "type" : "string",
+                "description" : "Base rate status"
+              },
+              "createdBy" : {
+                "type" : "string",
+                "description" : "Base rate status"
+              },
+              "usedByPrograms" : {
+                "type" : "boolean",
+                "description" : "Base rate is used by any active program"
+              },
+              "name" : {
+                "type" : "string",
+                "description" : "Unique name of the base rates table"
+              },
+              "description" : {
+                "type" : "string",
+                "description" : "Description of the base rates table"
+              },
+              "currencyIsoCode" : {
+                "type" : "string",
+                "description" : "The currency for which the base rates table applies"
+              },
+              "id" : {
+                "type" : "string",
+                "description" : "Base rates identifier"
+              },
+              "tenorData" : {
+                "type" : "array",
+                "description" : "The rate value for each tenor period",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "tenor" : {
+                      "type" : "string",
+                      "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                    },
+                    "rate" : {
+                      "type" : "number",
+                      "description" : "The percentage value"
+                    },
+                    "modifiedDate" : {
+                      "type" : "string",
+                      "description" : "test"
+                    },
+                    "modifiedBy" : {
+                      "type" : "string",
+                      "description" : "test"
+                    }
+                  }
+                }
+              },
+              "status" : {
+                "type" : "string",
+                "description" : "Base rate status"
+              }
+            },
+            "description" : "Base rate object"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "Error during save or update",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          }
+        }
+      },
+      "routing-rules-id-1454486298" : {
+        "type" : "object",
+        "properties" : {
+          "currency" : {
+            "type" : "string",
+            "description" : "Currency code"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "UUID"
+          },
+          "moduleId" : {
+            "type" : "string",
+            "description" : "Well known module code"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Asset type, one of: [Lcom.tradeix.core.grpc.platformownersettings.DataType;@312c9d70 "
+          },
+          "preferenceOrder" : {
+            "type" : "number",
+            "description" : "Rule preference order"
+          }
+        }
+      },
+      "bank-account-id1381505874" : {
+        "type" : "object",
+        "properties" : {
+          "bsbNumber" : {
+            "type" : "string",
+            "description" : "A 6 digit number used to identify a bank branch in Australia. Required if 'bankCountry' is Australia"
+          },
+          "correspondentBankName" : {
+            "type" : "string",
+            "description" : "The name of a correspondent bank"
+          },
+          "swiftOrBic" : {
+            "type" : "string",
+            "description" : "Bank Identification Code(BIC)"
+          },
+          "accountName" : {
+            "type" : "string",
+            "description" : "A unique name or reference for the account"
+          },
+          "proofOfAccountId" : {
+            "type" : "string",
+            "description" : "Proof of account identifier"
+          },
+          "externalId" : {
+            "type" : "string",
+            "description" : "An identifier for the account generated by an Enterprise Resource Planning(ERP)"
+          },
+          "bankName" : {
+            "type" : "string",
+            "description" : "The name of the bank that issued the account"
+          },
+          "accountNumber" : {
+            "type" : "string",
+            "description" : "The number of the bank account. Required if 'IBAN' is not set"
+          },
+          "sortCode" : {
+            "type" : "string",
+            "description" : "A 6 digit code used to identify a bank branch in the UK and other counties"
+          },
+          "version" : {
+            "type" : "number",
+            "description" : "Bank Account version"
+          },
+          "bankCountry" : {
+            "type" : "string",
+            "description" : "The country in which the bank that issued the account is registered"
+          },
+          "routingNumber" : {
+            "type" : "string",
+            "description" : "A 9 digit code used to identify a bank branch in the US"
+          },
+          "correspondentBankSwift" : {
+            "type" : "string",
+            "description" : "Correspondent Bank SWIFT/BIC Number"
+          },
+          "beneficiaryName" : {
+            "type" : "string",
+            "description" : "The name of the owner of the bank account"
+          },
+          "iban" : {
+            "type" : "string",
+            "description" : "International Bank Account Number, an ISO standard for bank account. Required if 'Account Number' is not set"
+          },
+          "bankAccountId" : {
+            "type" : "string",
+            "description" : "Bank Account identifier"
+          },
+          "currencies" : {
+            "type" : "array",
+            "description" : "An array of currencies",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "isDefault" : {
+                  "type" : "boolean",
+                  "description" : "Is the currency is default"
+                },
+                "currency" : {
+                  "type" : "string",
+                  "description" : "the ISO code of a currency"
+                }
+              }
+            }
+          }
+        }
+      },
+      "base-rates-1291146617" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "number",
+            "description" : "The page number that is being returned"
+          },
+          "size" : {
+            "type" : "number",
+            "description" : "The size of a single page"
+          },
+          "totalPages" : {
+            "type" : "number",
+            "description" : "Total number of pages"
+          },
+          "content" : {
+            "type" : "array",
+            "description" : "The content of the query",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "owner" : {
+                  "type" : "boolean",
+                  "description" : "Base rate belongs to this platform"
+                },
+                "createdDate" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                },
+                "createdBy" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                },
+                "usedByPrograms" : {
+                  "type" : "boolean",
+                  "description" : "Base rate is used by any active program"
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "Unique name of the base rates table"
+                },
+                "description" : {
+                  "type" : "string",
+                  "description" : "Description of the base rates table"
+                },
+                "currencyIsoCode" : {
+                  "type" : "string",
+                  "description" : "The currency for which the base rates table applies"
+                },
+                "id" : {
+                  "type" : "string",
+                  "description" : "Base rates identifier"
+                },
+                "tenorData" : {
+                  "type" : "array",
+                  "description" : "The rate value for each tenor period",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "tenor" : {
+                        "type" : "string",
+                        "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                      },
+                      "rate" : {
+                        "type" : "number",
+                        "description" : "The percentage value"
+                      },
+                      "modifiedDate" : {
+                        "type" : "string",
+                        "description" : "test"
+                      },
+                      "modifiedBy" : {
+                        "type" : "string",
+                        "description" : "test"
+                      }
+                    }
+                  }
+                },
+                "status" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                }
+              }
+            }
+          },
+          "totalElements" : {
+            "type" : "number",
+            "description" : "Total number of elements that can be returned"
+          }
+        }
+      },
+      "base-rates-id230683889" : {
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "type" : "string",
+            "description" : "Description of the base rates table"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "Base rate id"
+          },
+          "tenorData" : {
+            "type" : "array",
+            "description" : "The rate value for each tenor period",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "tenor" : {
+                  "type" : "string",
+                  "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                },
+                "rate" : {
+                  "type" : "number",
+                  "description" : "The percentage value"
+                }
+              }
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Base rate status"
+          }
+        }
+      },
+      "base-rates-batch-573317796" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "description" : "List of base rates requests",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "description" : {
+                  "type" : "string",
+                  "description" : "Description of the base rates table"
+                },
+                "id" : {
+                  "type" : "string",
+                  "description" : "Base rate id"
+                },
+                "tenorData" : {
+                  "type" : "array",
+                  "description" : "The rate value for each tenor period",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "tenor" : {
+                        "type" : "string",
+                        "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                      },
+                      "rate" : {
+                        "type" : "number",
+                        "description" : "The percentage value"
+                      }
+                    }
+                  }
+                },
+                "status" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                }
+              }
+            }
+          }
+        }
+      },
+      "payments-reconciliation-metadata-910794042" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "system" : {
+              "type" : "boolean",
+              "description" : "Is field system (shouldn't be displayed on UI)"
+            },
+            "fieldName" : {
+              "type" : "string",
+              "description" : "Field name"
+            },
+            "displayName" : {
+              "type" : "string",
+              "description" : "Display name"
+            },
+            "fieldDescription" : {
+              "type" : "string",
+              "description" : "Field description for UI"
+            },
+            "mandatory" : {
+              "type" : "boolean",
+              "description" : "Is field mandatory"
+            },
+            "calculated" : {
+              "type" : "boolean",
+              "description" : "Field is not present in real document, but is calculated in a runtime"
+            },
+            "fieldType" : {
+              "type" : "string",
+              "description" : "Field type"
+            }
+          },
+          "description" : ""
+        }
+      },
+      "base-rates-batch-178965755" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "description" : "Unique name of the base rates table"
+            },
+            "description" : {
+              "type" : "string",
+              "description" : "Description of the base rates table"
+            },
+            "currencyIsoCode" : {
+              "type" : "string",
+              "description" : "The currency for which the base rates table applies"
+            },
+            "tenorData" : {
+              "type" : "array",
+              "description" : "The rate value for each tenor period",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "tenor" : {
+                    "type" : "string",
+                    "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                  },
+                  "rate" : {
+                    "type" : "number",
+                    "description" : "The percentage value"
+                  }
+                }
+              }
+            },
+            "status" : {
+              "type" : "string",
+              "description" : "Base rate status"
+            }
+          },
+          "description" : ""
+        }
+      },
+      "routing-rules-id706411272" : {
+        "type" : "object",
+        "properties" : {
+          "currency" : {
+            "type" : "string",
+            "description" : "Currency"
+          },
+          "moduleId" : {
+            "type" : "string",
+            "description" : "Well known module code"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Asset type, one of: [Lcom.tradeix.core.grpc.platformownersettings.DataType;@5f18a36e "
+          },
+          "preferenceOrder" : {
+            "type" : "number",
+            "description" : "Rule preference order"
+          }
+        }
+      },
+      "base-rates1545042914" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Unique name of the base rates table"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Description of the base rates table"
+          },
+          "currencyIsoCode" : {
+            "type" : "string",
+            "description" : "The currency for which the base rates table applies"
+          },
+          "tenorData" : {
+            "type" : "array",
+            "description" : "The rate value for each tenor period",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "tenor" : {
+                  "type" : "string",
+                  "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                },
+                "rate" : {
+                  "type" : "number",
+                  "description" : "The percentage value"
+                }
+              }
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Base rate status"
+          }
+        }
+      },
+      "routing-rules--620197806" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "number",
+            "description" : "The page number that is being returned"
+          },
+          "size" : {
+            "type" : "number",
+            "description" : "The size of a single page"
+          },
+          "totalPages" : {
+            "type" : "number",
+            "description" : "Total number of pages"
+          },
+          "content" : {
+            "type" : "array",
+            "description" : "The content of the query",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "currency" : {
+                  "type" : "string",
+                  "description" : "Currency code"
+                },
+                "id" : {
+                  "type" : "string",
+                  "description" : "UUID"
+                },
+                "moduleId" : {
+                  "type" : "string",
+                  "description" : "Well known module code"
+                },
+                "type" : {
+                  "type" : "string",
+                  "description" : "Asset type, one of: [Lcom.tradeix.core.grpc.platformownersettings.DataType;@66b09624 "
+                },
+                "preferenceOrder" : {
+                  "type" : "number",
+                  "description" : "Rule preference order"
+                }
+              }
+            }
+          },
+          "totalElements" : {
+            "type" : "number",
+            "description" : "Total number of elements that can be returned"
+          }
+        }
+      },
+      "data-metadata-moduleId-assetType-1201259908" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "metadata" : {
+              "type" : "array",
+              "description" : "nested data",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "metadata" : {
+                    "type" : "array",
+                    "description" : "nested data",
+                    "items" : {
+                      "type" : "object",
+                      "properties" : {
+                        "metadata" : {
+                          "type" : "array",
+                          "description" : "nested data",
+                          "items" : {
+                            "type" : "object",
+                            "properties" : {
+                              "metadata" : {
+                                "type" : "array",
+                                "description" : "nested data",
+                                "items" : {
+                                  "oneOf" : [ {
+                                    "type" : "object"
+                                  }, {
+                                    "type" : "boolean"
+                                  }, {
+                                    "type" : "string"
+                                  }, {
+                                    "type" : "number"
+                                  } ]
+                                }
+                              },
+                              "system" : {
+                                "type" : "boolean",
+                                "description" : "Is field system (shouldn't be displayed on UI)"
+                              },
+                              "fieldName" : {
+                                "type" : "string",
+                                "description" : "Field name"
+                              },
+                              "displayName" : {
+                                "type" : "string",
+                                "description" : "Display name"
+                              },
+                              "fieldDescription" : {
+                                "type" : "string",
+                                "description" : "Field description for UI"
+                              },
+                              "calculated" : {
+                                "type" : "boolean",
+                                "description" : "Field is not present in real document, but is calculated in a runtime"
+                              },
+                              "mandatory" : {
+                                "type" : "boolean",
+                                "description" : "Is field mandatory"
+                              },
+                              "fieldType" : {
+                                "type" : "string",
+                                "description" : "Field type"
+                              },
+                              "exampleValue" : {
+                                "type" : "string",
+                                "description" : "example value"
+                              }
+                            }
+                          }
+                        },
+                        "system" : {
+                          "type" : "boolean",
+                          "description" : "Is field system (shouldn't be displayed on UI)"
+                        },
+                        "fieldName" : {
+                          "type" : "string",
+                          "description" : "Field name"
+                        },
+                        "displayName" : {
+                          "type" : "string",
+                          "description" : "Display name"
+                        },
+                        "fieldDescription" : {
+                          "type" : "string",
+                          "description" : "Field description for UI"
+                        },
+                        "calculated" : {
+                          "type" : "boolean",
+                          "description" : "Field is not present in real document, but is calculated in a runtime"
+                        },
+                        "mandatory" : {
+                          "type" : "boolean",
+                          "description" : "Is field mandatory"
+                        },
+                        "fieldType" : {
+                          "type" : "string",
+                          "description" : "Field type"
+                        },
+                        "exampleValue" : {
+                          "type" : "string",
+                          "description" : "example value"
+                        }
+                      }
+                    }
+                  },
+                  "system" : {
+                    "type" : "boolean",
+                    "description" : "Is field system (shouldn't be displayed on UI)"
+                  },
+                  "fieldName" : {
+                    "type" : "string",
+                    "description" : "Field name"
+                  },
+                  "displayName" : {
+                    "type" : "string",
+                    "description" : "Display name"
+                  },
+                  "fieldDescription" : {
+                    "type" : "string",
+                    "description" : "Field description for UI"
+                  },
+                  "additionalProperties" : {
+                    "type" : "object",
+                    "properties" : {
+                      "metadata" : {
+                        "type" : "array",
+                        "description" : "nested data",
+                        "items" : {
+                          "type" : "object",
+                          "properties" : {
+                            "metadata" : {
+                              "type" : "array",
+                              "description" : "nested data",
+                              "items" : {
+                                "oneOf" : [ {
+                                  "type" : "object"
+                                }, {
+                                  "type" : "boolean"
+                                }, {
+                                  "type" : "string"
+                                }, {
+                                  "type" : "number"
+                                } ]
+                              }
+                            },
+                            "system" : {
+                              "type" : "boolean",
+                              "description" : "Is field system (shouldn't be displayed on UI)"
+                            },
+                            "fieldName" : {
+                              "type" : "string",
+                              "description" : "Field name"
+                            },
+                            "displayName" : {
+                              "type" : "string",
+                              "description" : "Display name"
+                            },
+                            "fieldDescription" : {
+                              "type" : "string",
+                              "description" : "Field description for UI"
+                            },
+                            "calculated" : {
+                              "type" : "boolean",
+                              "description" : "Field is not present in real document, but is calculated in a runtime"
+                            },
+                            "mandatory" : {
+                              "type" : "boolean",
+                              "description" : "Is field mandatory"
+                            },
+                            "fieldType" : {
+                              "type" : "string",
+                              "description" : "Field type"
+                            }
+                          }
+                        }
+                      },
+                      "system" : {
+                        "type" : "boolean",
+                        "description" : "Is field system (shouldn't be displayed on UI)"
+                      },
+                      "fieldName" : {
+                        "type" : "string",
+                        "description" : "Field name"
+                      },
+                      "displayName" : {
+                        "type" : "string",
+                        "description" : "Display name"
+                      },
+                      "fieldDescription" : {
+                        "type" : "string",
+                        "description" : "Field description for UI"
+                      },
+                      "calculated" : {
+                        "type" : "boolean",
+                        "description" : "Field is not present in real document, but is calculated in a runtime"
+                      },
+                      "mandatory" : {
+                        "type" : "boolean",
+                        "description" : "Is field mandatory"
+                      },
+                      "fieldType" : {
+                        "type" : "string",
+                        "description" : "Field type"
+                      }
+                    },
+                    "description" : "additional properties"
+                  },
+                  "calculated" : {
+                    "type" : "boolean",
+                    "description" : "Field is not present in real document, but is calculated in a runtime"
+                  },
+                  "mandatory" : {
+                    "type" : "boolean",
+                    "description" : "Is field mandatory"
+                  },
+                  "fieldType" : {
+                    "type" : "string",
+                    "description" : "Field type"
+                  },
+                  "exampleValue" : {
+                    "type" : "string",
+                    "description" : "example value"
+                  }
+                }
+              }
+            },
+            "system" : {
+              "type" : "boolean",
+              "description" : "Is field system (shouldn't be displayed on UI)"
+            },
+            "fieldName" : {
+              "type" : "string",
+              "description" : "Field name"
+            },
+            "displayName" : {
+              "type" : "string",
+              "description" : "Display name"
+            },
+            "fieldDescription" : {
+              "type" : "string",
+              "description" : "Field description for UI"
+            },
+            "additionalProperties" : {
+              "type" : "object",
+              "properties" : {
+                "metadata" : {
+                  "type" : "array",
+                  "description" : "nested data",
+                  "items" : {
+                    "oneOf" : [ {
+                      "type" : "object"
+                    }, {
+                      "type" : "boolean"
+                    }, {
+                      "type" : "string"
+                    }, {
+                      "type" : "number"
+                    } ]
+                  }
+                },
+                "system" : {
+                  "type" : "boolean",
+                  "description" : "Is field system (shouldn't be displayed on UI)"
+                },
+                "fieldName" : {
+                  "type" : "string",
+                  "description" : "Field name"
+                },
+                "displayName" : {
+                  "type" : "string",
+                  "description" : "Display name"
+                },
+                "fieldDescription" : {
+                  "type" : "string",
+                  "description" : "Field description for UI"
+                },
+                "calculated" : {
+                  "type" : "boolean",
+                  "description" : "Field is not present in real document, but is calculated in a runtime"
+                },
+                "mandatory" : {
+                  "type" : "boolean",
+                  "description" : "Is field mandatory"
+                },
+                "fieldType" : {
+                  "type" : "string",
+                  "description" : "Field type"
+                }
+              },
+              "description" : "additional properties"
+            },
+            "calculated" : {
+              "type" : "boolean",
+              "description" : "Field is not present in real document, but is calculated in a runtime"
+            },
+            "mandatory" : {
+              "type" : "boolean",
+              "description" : "Is field mandatory"
+            },
+            "fieldType" : {
+              "type" : "string",
+              "description" : "Field type"
+            },
+            "exampleValue" : {
+              "type" : "string",
+              "description" : "example value"
+            }
+          },
+          "description" : ""
+        }
+      },
+      "base-rates-batch-758731108" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "baseRate" : {
+              "type" : "object",
+              "properties" : {
+                "owner" : {
+                  "type" : "boolean",
+                  "description" : "Base rate belongs to this platform"
+                },
+                "createdDate" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                },
+                "createdBy" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                },
+                "usedByPrograms" : {
+                  "type" : "boolean",
+                  "description" : "Base rate is used by any active program"
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "Unique name of the base rates table"
+                },
+                "description" : {
+                  "type" : "string",
+                  "description" : "Description of the base rates table"
+                },
+                "currencyIsoCode" : {
+                  "type" : "string",
+                  "description" : "The currency for which the base rates table applies"
+                },
+                "id" : {
+                  "type" : "string",
+                  "description" : "Base rates identifier"
+                },
+                "tenorData" : {
+                  "type" : "array",
+                  "description" : "The rate value for each tenor period",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "tenor" : {
+                        "type" : "string",
+                        "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                      },
+                      "rate" : {
+                        "type" : "number",
+                        "description" : "The percentage value"
+                      },
+                      "modifiedDate" : {
+                        "type" : "string",
+                        "description" : "test"
+                      },
+                      "modifiedBy" : {
+                        "type" : "string",
+                        "description" : "test"
+                      }
+                    }
+                  }
+                },
+                "status" : {
+                  "type" : "string",
+                  "description" : "Base rate status"
+                }
+              },
+              "description" : "Base rate object"
+            },
+            "errors" : {
+              "type" : "array",
+              "description" : "Error during save or update",
+              "items" : {
+                "oneOf" : [ {
+                  "type" : "object"
+                }, {
+                  "type" : "boolean"
+                }, {
+                  "type" : "string"
+                }, {
+                  "type" : "number"
+                } ]
+              }
+            }
+          },
+          "description" : ""
+        }
+      },
+      "bank-account-953646699" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "bsbNumber" : {
+              "type" : "string",
+              "description" : "A 6 digit number used to identify a bank branch in Australia. Required if 'bankCountry' is Australia"
+            },
+            "correspondentBankName" : {
+              "type" : "string",
+              "description" : "The name of a correspondent bank"
+            },
+            "swiftOrBic" : {
+              "type" : "string",
+              "description" : "Bank Identification Code(BIC)"
+            },
+            "accountName" : {
+              "type" : "string",
+              "description" : "A unique name or reference for the account"
+            },
+            "proofOfAccountId" : {
+              "type" : "string",
+              "description" : "Proof of account identifier"
+            },
+            "externalId" : {
+              "type" : "string",
+              "description" : "An identifier for the account generated by an Enterprise Resource Planning(ERP)"
+            },
+            "bankName" : {
+              "type" : "string",
+              "description" : "The name of the bank that issued the account"
+            },
+            "accountNumber" : {
+              "type" : "string",
+              "description" : "The number of the bank account. Required if 'IBAN' is not set"
+            },
+            "sortCode" : {
+              "type" : "string",
+              "description" : "A 6 digit code used to identify a bank branch in the UK and other counties"
+            },
+            "version" : {
+              "type" : "number",
+              "description" : "Bank Account version"
+            },
+            "bankCountry" : {
+              "type" : "string",
+              "description" : "The country in which the bank that issued the account is registered"
+            },
+            "routingNumber" : {
+              "type" : "string",
+              "description" : "A 9 digit code used to identify a bank branch in the US"
+            },
+            "correspondentBankSwift" : {
+              "type" : "string",
+              "description" : "Correspondent Bank SWIFT/BIC Number"
+            },
+            "beneficiaryName" : {
+              "type" : "string",
+              "description" : "The name of the owner of the bank account"
+            },
+            "iban" : {
+              "type" : "string",
+              "description" : "International Bank Account Number, an ISO standard for bank account. Required if 'Account Number' is not set"
+            },
+            "bankAccountId" : {
+              "type" : "string",
+              "description" : "Bank Account identifier"
+            },
+            "currencies" : {
+              "type" : "array",
+              "description" : "An array of currencies",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "isDefault" : {
+                    "type" : "boolean",
+                    "description" : "Is the currency is default"
+                  },
+                  "currency" : {
+                    "type" : "string",
+                    "description" : "the ISO code of a currency"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "base-rates-batch1770428283" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "actionStatus" : {
+              "type" : "string",
+              "description" : "Action status"
+            },
+            "name" : {
+              "type" : "string",
+              "description" : "Unique name of the base rates table"
+            },
+            "currencyIsoCode" : {
+              "type" : "string",
+              "description" : "The currency for which the base rates table applies"
+            },
+            "errors" : {
+              "type" : "array",
+              "description" : "Errors during save or update",
+              "items" : {
+                "oneOf" : [ {
+                  "type" : "object"
+                }, {
+                  "type" : "boolean"
+                }, {
+                  "type" : "string"
+                }, {
+                  "type" : "number"
+                } ]
+              }
+            }
+          },
+          "description" : ""
+        }
+      },
+      "base-rates-id1300357279" : {
+        "type" : "object",
+        "properties" : {
+          "owner" : {
+            "type" : "boolean",
+            "description" : "Base rate belongs to this platform"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "description" : "Base rate status"
+          },
+          "createdBy" : {
+            "type" : "string",
+            "description" : "Base rate status"
+          },
+          "usedByPrograms" : {
+            "type" : "boolean",
+            "description" : "Base rate is used by any active program"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Unique name of the base rates table"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Description of the base rates table"
+          },
+          "currencyIsoCode" : {
+            "type" : "string",
+            "description" : "The currency for which the base rates table applies"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "Base rates identifier"
+          },
+          "tenorData" : {
+            "type" : "array",
+            "description" : "The rate value for each tenor period",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "tenor" : {
+                  "type" : "string",
+                  "description" : "The tenor for the rate to be applicable. Any of: Overnight, OneWeek, TwoWeeks, OneMonth, TwoMonths, ThreeMonths, FourMonths, FiveMonths, SixMonths, SevenMonths, EightMonths, NineMonths, TenMonths, ElevenMonths, TwelveMonths"
+                },
+                "rate" : {
+                  "type" : "number",
+                  "description" : "The percentage value"
+                },
+                "modifiedDate" : {
+                  "type" : "string",
+                  "description" : "test"
+                },
+                "modifiedBy" : {
+                  "type" : "string",
+                  "description" : "test"
+                }
+              }
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Base rate status"
+          }
+        }
+      },
+      "bank-account-all903038412" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "number",
+            "description" : "The page number that is being returned"
+          },
+          "size" : {
+            "type" : "number",
+            "description" : "The size of a single page"
+          },
+          "totalPages" : {
+            "type" : "number",
+            "description" : "Total number of pages"
+          },
+          "content" : {
+            "type" : "array",
+            "description" : "The content of the query",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "bsbNumber" : {
+                  "type" : "string",
+                  "description" : "A 6 digit number used to identify a bank branch in Australia. Required if 'bankCountry' is Australia"
+                },
+                "correspondentBankName" : {
+                  "type" : "string",
+                  "description" : "The name of a correspondent bank"
+                },
+                "swiftOrBic" : {
+                  "type" : "string",
+                  "description" : "Bank Identification Code(BIC)"
+                },
+                "accountName" : {
+                  "type" : "string",
+                  "description" : "A unique name or reference for the account"
+                },
+                "proofOfAccountId" : {
+                  "type" : "string",
+                  "description" : "Proof of account identifier"
+                },
+                "externalId" : {
+                  "type" : "string",
+                  "description" : "An identifier for the account generated by an Enterprise Resource Planning(ERP)"
+                },
+                "bankName" : {
+                  "type" : "string",
+                  "description" : "The name of the bank that issued the account"
+                },
+                "accountNumber" : {
+                  "type" : "string",
+                  "description" : "The number of the bank account. Required if 'IBAN' is not set"
+                },
+                "sortCode" : {
+                  "type" : "string",
+                  "description" : "A 6 digit code used to identify a bank branch in the UK and other counties"
+                },
+                "version" : {
+                  "type" : "number",
+                  "description" : "Bank Account version"
+                },
+                "bankCountry" : {
+                  "type" : "string",
+                  "description" : "The country in which the bank that issued the account is registered"
+                },
+                "routingNumber" : {
+                  "type" : "string",
+                  "description" : "A 9 digit code used to identify a bank branch in the US"
+                },
+                "correspondentBankSwift" : {
+                  "type" : "string",
+                  "description" : "Correspondent Bank SWIFT/BIC Number"
+                },
+                "beneficiaryName" : {
+                  "type" : "string",
+                  "description" : "The name of the owner of the bank account"
+                },
+                "iban" : {
+                  "type" : "string",
+                  "description" : "International Bank Account Number, an ISO standard for bank account. Required if 'Account Number' is not set"
+                },
+                "bankAccountId" : {
+                  "type" : "string",
+                  "description" : "Bank Account identifier"
+                },
+                "currencies" : {
+                  "type" : "array",
+                  "description" : "An array of currencies",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "isDefault" : {
+                        "type" : "boolean",
+                        "description" : "Is the currency is default"
+                      },
+                      "currency" : {
+                        "type" : "string",
+                        "description" : "the ISO code of a currency"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "totalElements" : {
+            "type" : "number",
+            "description" : "Total number of elements that can be returned"
+          }
+        }
+      },
+      "routing-rules-id486549215" : {
+        "type" : "object"
+      },
+      "routing-rules1457990264" : {
+        "type" : "object",
+        "properties" : {
+          "currency" : {
+            "type" : "string",
+            "description" : "Currency"
+          },
+          "moduleId" : {
+            "type" : "string",
+            "description" : "Well known module code"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Asset type, one of: [Lcom.tradeix.core.grpc.platformownersettings.DataType;@7a6c53e9 "
+          },
+          "preferenceOrder" : {
+            "type" : "number",
+            "description" : "Rule preference order"
+          }
+        }
+      }
+    }
+  }
+}

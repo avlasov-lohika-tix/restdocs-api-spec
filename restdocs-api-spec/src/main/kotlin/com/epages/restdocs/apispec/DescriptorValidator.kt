@@ -11,20 +11,51 @@ import org.springframework.restdocs.operation.Operation
 import org.springframework.restdocs.payload.FieldDescriptor
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.RequestFieldsSnippet
+import org.springframework.restdocs.payload.RequestPartFieldsSnippet
 import org.springframework.restdocs.payload.ResponseFieldsSnippet
 import org.springframework.restdocs.request.ParameterDescriptor
 import org.springframework.restdocs.request.PathParametersSnippet
 import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
+import org.springframework.restdocs.request.RequestDocumentation.partWithName
 import org.springframework.restdocs.request.RequestParametersSnippet
+import org.springframework.restdocs.request.RequestPartDescriptor
+import org.springframework.restdocs.request.RequestPartsSnippet
 
 internal object DescriptorValidator {
 
     fun validatePresentParameters(snippetParameters: ResourceSnippetParameters, operation: Operation) {
         with(snippetParameters) {
-            validateIfDescriptorsPresent(
-                requestFields,
-                operation
-            ) { RequestFieldsSnippetWrapper(requestFields) }
+
+            when (request) {
+                is RequestBody -> {
+                    validateIfDescriptorsPresent(
+                        request.requestFields,
+                        operation
+                    ) { RequestFieldsSnippetWrapper(request.requestFields) }
+                }
+                is MultipartRequest -> {
+                    validateIfDescriptorsPresent(
+                        request.requestParts,
+                        operation
+                    ) {
+                        RequestPartsSnippetWrapper(
+                            toRequestPartDescriptors(request.requestParts)
+                        )
+                    }
+
+                    request.requestPartFields.forEach { (partName, fields) ->
+                        validateIfDescriptorsPresent(
+                            fields,
+                            operation
+                        ) {
+                            RequestPartFieldsSnippetWrapper(
+                                partName,
+                                fields
+                            )
+                        }
+                    }
+                }
+            }
 
             validateIfDescriptorsPresent(
                 links,
@@ -92,11 +123,24 @@ internal object DescriptorValidator {
                 .apply { if (h.optional) optional() }
         }
 
+    private fun toRequestPartDescriptors(requestParts: Map<String, RequestPartDescriptorWithType>) =
+        requestParts.values
+            .map { p ->
+                partWithName(p.name).description(p.description)
+                    .apply {
+                        if (p.optional) optional()
+                    }
+            }
+
     private interface ValidateableSnippet {
         fun validate(operation: Operation)
     }
 
     private fun validateIfDescriptorsPresent(descriptors: List<Any>, operation: Operation, validateableSnippetFactory: () -> ValidateableSnippet) {
+        if (descriptors.isNotEmpty()) validateableSnippetFactory().validate(operation)
+    }
+
+    private fun validateIfDescriptorsPresent(descriptors: Map<String, Any>, operation: Operation, validateableSnippetFactory: () -> ValidateableSnippet) {
         if (descriptors.isNotEmpty()) validateableSnippetFactory().validate(operation)
     }
 
@@ -180,4 +224,19 @@ internal object DescriptorValidator {
             this.createModel(operation)
         }
     }
+
+    private class RequestPartsSnippetWrapper(descriptors: List<RequestPartDescriptor>): RequestPartsSnippet(descriptors), ValidateableSnippet {
+        override fun validate(operation: Operation) {
+            this.createModel(operation)
+        }
+
+    }
+
+    private class RequestPartFieldsSnippetWrapper(partName: String, descriptors: List<FieldDescriptor>): RequestPartFieldsSnippet(partName, descriptors), ValidateableSnippet {
+        override fun validate(operation: Operation) {
+            this.createModel(operation)
+        }
+
+    }
+
 }
